@@ -1,0 +1,135 @@
+# Prepares MacOSX desktop.
+# Tested only on Intel-based chips
+- name: prepare_macosx_desktop
+  hosts: all
+  vars:
+    install_azure_tools: true                   # install Microsoft's Azure related tools
+    retries_count: 2                            # how many retries
+    delay_time: 3                               # delay time in seconds between retries
+  become: false
+  gather_facts: false
+  pre_tasks:
+  # ansible version
+    - name: verify_ansible_meets_version_requirements
+      ansible.builtin.assert:
+        that: "ansible_version.full is version('2.10', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.10 to use this version of playbook"
+      tags:
+        - assert
+    # setup module - we need these facts
+    - name: run_initial_setup_instead_of_gather_facts
+      ansible.builtin.setup:
+        gather_timeout: 30
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_setup_status
+      until: r_setup_status is success
+      tags:
+        - assert
+    # check if running on MacOSX
+    - name: running_on_macos
+      ansible.builtin.assert:
+        that: "ansible_distribution == 'MacOSX'"
+        msg: >
+          "You need to run it on MacBook"
+      when: ansible_distribution is defined
+      tags:
+        - assert
+    - name: load_playbook_vars_depending_on_distribution
+      include_vars:
+        dir: .
+        files_matching: "macbook-devops_.*.yaml"
+      any_errors_fatal: true
+      ignore_errors: false
+      register: r_load_vars
+      until: r_load_vars is success
+      changed_when: false
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      failed_when: r_load_vars is failed or r_load_vars.ansible_included_var_files is not defined
+      tags:
+        - assert
+  tasks:
+    - name: display_basic_information
+      debug:
+        msg:
+          - "MacOSX major version         : {{ ansible_distribution_major_version }}"
+          - "MacOSX release               : {{ ansible_distribution_release }}"
+          - "Ansible version              : {{ ansible_version.full }}"
+    - name: wait_15_seconds
+      ansible.builtin.pause:
+        seconds: 15
+        prompt: "Check variables - last chance to abort in 15 seconds"
+  # Install homebrew essential formulae
+    - name: install_homebrew_formulae
+      community.general.homebrew:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('latest') }}"
+      loop: "{{ homebrew_formulae_essential }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_formulae_essential
+      until: r_homebrew_formulae_essential is success
+      any_errors_fatal: false
+      tags:
+        - packages
+        - base
+        - formulae
+        - homebrew
+        - essential
+  # Install homebrew optional formulae
+    - name: install_homebrew_optional_formulae
+      community.general.homebrew:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('latest') }}"
+      loop: "{{ homebrew_formulae_optional }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_formulae_optional
+      until: r_homebrew_formulae_optional is success
+      any_errors_fatal: false
+      tags:
+        - packages
+        - base
+        - formulae
+        - homebrew
+        - optional
+  # Install homebrew casks
+    - name: install_homebrew_casks
+      community.general.homebrew_cask:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        sudo_password: "{{ sudo_password }}"
+      loop: "{{ homebrew_casks }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_casks
+      until: r_homebrew_casks is success
+      any_errors_fatal: false
+      tags:
+        - packages
+        - base
+        - homebrew
+        - casks
+        - essential
+  # install homebrew casks - optional
+    - name: install_homebrew_casks_optional
+      community.general.homebrew_cask:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        sudo_password: "{{ sudo_password }}"
+      loop: "{{ homebrew_casks_optional }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_casks_optional
+      until: r_homebrew_casks_optional is success
+      any_errors_fatal: false
+      tags:
+        - packages
+        - base
+        - homebrew
+        - casks
+        - optional

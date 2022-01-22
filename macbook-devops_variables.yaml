@@ -1,0 +1,32 @@
+# MacOSX variables file
+---
+ansible_python_interpreter: /usr/bin/python3
+homebrew_formulae_essential:
+  - name: terraform
+  - name: httpie
+  - name: git
+  - name: iperf3
+  - name: nmap
+  - name: cowsay
+  - name: openssl
+  - name: wget
+  - name: pv
+  - name: kubectl
+  - name: helm
+homebrew_formulae_optional:
+  - name: git-lfs
+homebrew_casks:
+  - name: google-chrome
+  - name: lens
+  - name: visual-studio-code
+  - name: obsidian
+  - name: postman
+  - name: virtualbox
+  - name: virtualbox-extension-pack
+  - name: dropbox
+  - name: gitkraken
+  - name: zoom
+homebrew_casks_optional:
+  - name: spotify
+homebrew_azure:
+  - name: azure-cli
