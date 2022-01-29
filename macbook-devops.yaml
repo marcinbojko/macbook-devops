@@ -4,6 +4,8 @@
   hosts: all
   vars:
     install_azure_tools: true                   # install Microsoft's Azure related tools
+    install_gcloud_tools: true                  # install Google Cloud Tools
+    install_oci_tools: true                     # install Oracle Cloud Infrastructure
     retries_count: 2                            # how many retries
     delay_time: 3                               # delay time in seconds between retries
   become: false
@@ -133,3 +135,56 @@
         - homebrew
         - casks
         - optional
+  # Install homebrew azure formulae
+    - name: install_homebrew_azure_formulae
+      community.general.homebrew:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('latest') }}"
+      loop: "{{ homebrew_azure }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_azure
+      until: r_homebrew_azure is success
+      when: install_azure_tools is defined and install_azure_tools
+      any_errors_fatal: false
+      tags:
+        - packages
+        - formulae
+        - homebrew
+        - azure
+  # Install homebrew gcloud formulae
+    - name: install_homebrew_gcloud_casks
+      community.general.homebrew_cask:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('latest') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        sudo_password: "{{ sudo_password }}"
+      loop: "{{ homebrew_gcloud }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_gcloud
+      until: r_homebrew_gcloud is success
+      when: install_gcloud_tools is defined and install_gcloud_tools
+      any_errors_fatal: false
+      tags:
+        - packages
+        - formulae
+        - homebrew
+        - gcloud
+  # Install homebrew oracle formulae
+    - name: install_homebrew_oci_formulae
+      community.general.homebrew:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('latest') }}"
+      loop: "{{ homebrew_oci }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_oci
+      until: r_homebrew_oci is success
+      when: install_oci_tools is defined and install_oci_tools
+      any_errors_fatal: false
+      tags:
+        - packages
+        - formulae
+        - homebrew
+        - oci

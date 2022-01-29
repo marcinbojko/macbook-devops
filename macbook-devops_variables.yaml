@@ -2,31 +2,45 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
 homebrew_formulae_essential:
-  - name: terraform
-  - name: httpie
-  - name: git
-  - name: iperf3
-  - name: nmap
   - name: cowsay
-  - name: openssl
-  - name: wget
-  - name: pv
-  - name: kubectl
+  - name: git
+  - name: gpg
   - name: helm
+  - name: httpie
+  - name: iperf3
+  - name: jq
+  - name: kubectl
+  - name: nmap
+  - name: openssl
+  - name: packer
+  - name: pv
+  - name: rke
+  - name: terraform
+  - name: wget
+  - name: zsh
+  - name: mc
+  - name: hadolint
 homebrew_formulae_optional:
   - name: git-lfs
 homebrew_casks:
-  - name: google-chrome
-  - name: lens
-  - name: visual-studio-code
-  - name: obsidian
-  - name: postman
-  - name: virtualbox
-  - name: virtualbox-extension-pack
   - name: dropbox
   - name: gitkraken
+  - name: google-chrome
+  - name: lens
+  - name: obsidian
+  - name: postman
+  - name: tabby
+  - name: virtualbox
+  - name: virtualbox-extension-pack
+  - name: visual-studio-code
   - name: zoom
+  - name: synergy
+  - name: rancher
 homebrew_casks_optional:
   - name: spotify
 homebrew_azure:
   - name: azure-cli
+homebrew_gcloud:
+  - name: google-cloud-sdk
+homebrew_oci:
+  - name: oci-cli
