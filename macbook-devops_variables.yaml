@@ -20,6 +20,8 @@ homebrew_formulae_essential:
   - name: zsh
   - name: mc
   - name: hadolint
+  - name: mtr
+  - name: nano
 homebrew_formulae_optional:
   - name: git-lfs
 homebrew_casks:
@@ -36,11 +38,23 @@ homebrew_casks:
   - name: zoom
   - name: synergy
   - name: rancher
+  - name: vagrant
 homebrew_casks_optional:
   - name: spotify
+  - name: thetimemachinemechanic
 homebrew_azure:
-  - name: azure-cli
+  casks: []
+  formulae:
+    - name: azure-cli
 homebrew_gcloud:
-  - name: google-cloud-sdk
+  casks:
+    - name: google-cloud-sdk
+  formulae: []
 homebrew_oci:
-  - name: oci-cli
+  casks: []
+  formulae:
+    - name: oci-cli
+homebrew_aws:
+  casks: []
+  formulae:
+    - name: awscli
