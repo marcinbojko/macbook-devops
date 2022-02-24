@@ -19,7 +19,7 @@ jobs:
         #   playbook_2.yml
         targets: |
           ./macbook-devops.yaml
-        #  ./tasks/*.yml
+          ./tasks/*.yml
         # [optional]
         # Arguments to override a package and its version to be set explicitly.
         # Must follow the example syntax.

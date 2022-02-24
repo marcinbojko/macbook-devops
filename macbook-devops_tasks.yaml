@@ -1,1 +1,3 @@
 # variables for tasks
+unpack_folder: /tmp/macbook
+bin_path: /usr/local/bin

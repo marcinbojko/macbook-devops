@@ -3,5 +3,6 @@ skip_list:
   - command-instead-of-shell
   - git-latest
   - experimental
+  - command-instead-of-module
 exclude_paths:
   - .github/

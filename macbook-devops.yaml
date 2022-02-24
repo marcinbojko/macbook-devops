@@ -7,6 +7,8 @@
     install_gcloud_tools: true                  # install Google Cloud tools
     install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
     install_aws_tools: true                     # install Amazon Cloud tools
+    update_homebrew: true                       # should be update brew itself in first step
+    update_homebrew_packages: true                 # should we upgrade all brew packages
     retries_count: 2                            # how many retries
     delay_time: 3                               # delay time in seconds between retries
   become: false
@@ -64,6 +66,35 @@
       ansible.builtin.pause:
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
+# Start
+    - name: download_unarchive_flatten
+      include_tasks: ./tasks/download_files.yml
+      loop: "{{ unpack }}"
+      args:
+        apply:
+          become: true
+          tags:
+          - downloads
+          - apps
+          - tasks
+      tags:
+      - always
+  # Update homebrew
+    - name: update_homebrew
+      community.general.homebrew:
+        update_homebrew: yes
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_update_homebrew
+      until: r_update_homebrew is success
+      any_errors_fatal: false
+      when: update_homebrew
+      tags:
+        - packages
+        - base
+        - itself
+        - homebrew
+        - essential
   # Install homebrew essential formulae
     - name: install_homebrew_formulae
       community.general.homebrew:
@@ -256,7 +287,6 @@
             - homebrew
             - oci
       when: install_oci_tools is defined and install_oci_tools
-
   # Install homebrew gcloud formulae
     - name: install_gcloud_formulae_and_casks
       block:
@@ -297,3 +327,19 @@
             - homebrew
             - gcloud
       when: install_gcloud_tools is defined and install_gcloud_tools
+  # Update homebrew packages
+    - name: update_homebrew_packages
+      community.general.homebrew:
+        upgrade_all: yes
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_update_homebrew_packages
+      until: r_update_homebrew_packages is success
+      any_errors_fatal: false
+      when: update_homebrew_packages
+      tags:
+        - packages
+        - base
+        - itself
+        - upgrade
+        - essential
