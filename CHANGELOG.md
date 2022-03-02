@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.2.0
+
+* added more packages to be in sync with [https://github.com/marcinbojko/linux_mint](https://github.com/marcinbojko/linux_mint)
+* added pip modules section
+
 ## Version 0.1.0
 
 * added `update_homebrew` variable to update homebrew itself

@@ -66,19 +66,7 @@
       ansible.builtin.pause:
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
-# Start
-    - name: download_unarchive_flatten
-      include_tasks: ./tasks/download_files.yml
-      loop: "{{ unpack }}"
-      args:
-        apply:
-          become: true
-          tags:
-          - downloads
-          - apps
-          - tasks
-      tags:
-      - always
+    # Start
   # Update homebrew
     - name: update_homebrew
       community.general.homebrew:
@@ -343,3 +331,34 @@
         - itself
         - upgrade
         - essential
+    - name: install_and_upgrade_pip_packages
+      pip:
+        name: "{{ item }}"
+        extra_args: --upgrade --upgrade-strategy=only-if-needed --ignore-installed
+        executable: "{{ pip_executable }}"
+      loop: "{{ pip }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_pip
+      until: r_pip is success
+      any_errors_fatal: false
+      ignore_errors: true
+      when: pip_executable is defined
+      tags:
+        - packages
+        - base
+        - python
+    # download and unflatten
+    - name: download_unarchive_flatten
+      include_tasks: ./tasks/download_files.yml
+      loop: "{{ unpack }}"
+      args:
+        apply:
+          become: true
+          tags:
+            - downloads
+            - apps
+            - tasks
+      tags:
+        - always
+

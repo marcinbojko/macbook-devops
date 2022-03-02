@@ -23,9 +23,21 @@ homebrew_formulae_essential:
   - name: mtr
   - name: nano
   - name: gnu-tar
+  - name: vault
+  - name: htop
+  - name: kubeconform
+  - name: ctop
+  - name: iftop
+  - name: testdisk
+  - name: testssl
 homebrew_formulae_optional:
   - name: git-lfs
   - name: skaffold
+  - name: tflint
+  - name: tfsec
+  - name: ffuf
+  - name: gping
+  - name: hadolint
 homebrew_casks:
   - name: dropbox
   - name: gitkraken
@@ -41,9 +53,15 @@ homebrew_casks:
   - name: synergy
   - name: rancher
   - name: vagrant
+  - name: powershell
+  - name: zenmap
+  - name: xca
 homebrew_casks_optional:
   - name: spotify
   - name: thetimemachinemechanic
+  - name: ngrok
+  - name: packetsender
+  - name: wireshark
 homebrew_azure:
   casks: []
   formulae:
@@ -60,9 +78,33 @@ homebrew_aws:
   casks: []
   formulae:
     - name: awscli
+pip_executable: pip3
+pip:
+- pip
+- psutil
+- s-tui
+- pywinrm[kerberos]
+- requests-kerberos
+- requests-ntlm
+- pywinrm[credssp]
+- requests-credssp
+- pypsrp
+- yamllint
+- ansible-lint
+- jmespath
+- jsonlint
+- gittyleaks
+- kube-hunter
+- pipdeptree
+- oci-cli
 unpack:
 - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
   destination: kubestr
   source: kubestr
   destination_file: kubestr.tar.gz
+  folder:
+- url: https://github.com/FairwindsOps/polaris/releases/download/5.0.0/polaris_darwin_amd64.tar.gz
+  destination: polaris
+  source: polaris
+  destination_file: polaris.tar.gz
   folder:
