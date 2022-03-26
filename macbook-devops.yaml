@@ -67,10 +67,10 @@
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
     # Start
-  # Update homebrew
+    # Update homebrew
     - name: update_homebrew
       community.general.homebrew:
-        update_homebrew: yes
+        update_homebrew: true
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: r_update_homebrew
@@ -83,7 +83,7 @@
         - itself
         - homebrew
         - essential
-  # Install homebrew essential formulae
+    # Install homebrew essential formulae
     - name: install_homebrew_formulae
       community.general.homebrew:
         name: "{{ item.name }}"
@@ -164,7 +164,7 @@
             state: "{{ item.state | default ('latest') }}"
           loop: "{{ homebrew_azure.formulae if homebrew_azure.formulae is iterable }}"
           loop_control:
-            extended: yes
+            extended: true
           retries: "{{ retries_count }}"
           delay: "{{ delay_time }}"
           register: r_homebrew_azure_formulae
@@ -204,7 +204,7 @@
             state: "{{ item.state | default ('latest') }}"
           loop: "{{ homebrew_aws.formulae if homebrew_aws.formulae is iterable }}"
           loop_control:
-            extended: yes
+            extended: true
           retries: "{{ retries_count }}"
           delay: "{{ delay_time }}"
           register: r_homebrew_aws_formulae
@@ -244,7 +244,7 @@
             state: "{{ item.state | default ('latest') }}"
           loop: "{{ homebrew_oci.formulae if homebrew_oci.formulae is iterable }}"
           loop_control:
-            extended: yes
+            extended: true
           retries: "{{ retries_count }}"
           delay: "{{ delay_time }}"
           register: r_homebrew_oci_formulae
@@ -284,7 +284,7 @@
             state: "{{ item.state | default ('latest') }}"
           loop: "{{ homebrew_gcloud.formulae if homebrew_gcloud.formulae is iterable }}"
           loop_control:
-            extended: yes
+            extended: true
           retries: "{{ retries_count }}"
           delay: "{{ delay_time }}"
           register: r_homebrew_gcloud_formulae
@@ -318,7 +318,10 @@
   # Update homebrew packages
     - name: update_homebrew_packages
       community.general.homebrew:
-        upgrade_all: yes
+        upgrade_all: true
+        upgrade_options:
+          - debug
+          - verbose
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: r_update_homebrew_packages
@@ -361,4 +364,3 @@
             - tasks
       tags:
         - always
-

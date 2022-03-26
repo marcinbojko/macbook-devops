@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 0.3.0
+
+* [FORMULA] added krew [https://github.com/kubernetes-sigs/krew](https://github.com/kubernetes-sigs/krew)
+* [FORMULA] added k3sup [https://github.com/alexellis/k3sup](https://github.com/alexellis/k3sup)
+* [FORMULA] added `arping`
+* [FORMULA] added `esolitos/ipa/sshpass`
+* [APPLICATION] added `dockle` - container image linter [https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)
+* [APPLICATION] added `polaris` [https://github.com/FairwindsOps/polaris](https://github.com/FairwindsOps/polaris)
+* [FORMULA] added `minikube`
+
 ## Version 0.2.0
 
 * added more packages to be in sync with [https://github.com/marcinbojko/linux_mint](https://github.com/marcinbojko/linux_mint)

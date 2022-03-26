@@ -18,6 +18,8 @@ ansible_connection: ssh
 
 ### Install xcode
 
+### Run playbook
+
 ```bash
 ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "your_user_password"}'
 ```
@@ -73,6 +75,7 @@ unpack:
 * add system settings
 * add npm
 * add external packages not available through homebrew or AppStore
+* add M1 chip files
 
 ## Known issues
 

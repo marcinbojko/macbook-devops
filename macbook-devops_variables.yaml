@@ -30,6 +30,9 @@ homebrew_formulae_essential:
   - name: iftop
   - name: testdisk
   - name: testssl
+  - name: arping
+  - name: esolitos/ipa/sshpass
+  - name: minikube
 homebrew_formulae_optional:
   - name: git-lfs
   - name: skaffold
@@ -38,6 +41,8 @@ homebrew_formulae_optional:
   - name: ffuf
   - name: gping
   - name: hadolint
+  - name: krew
+  - name: k3sup
 homebrew_casks:
   - name: dropbox
   - name: gitkraken
@@ -80,31 +85,36 @@ homebrew_aws:
     - name: awscli
 pip_executable: pip3
 pip:
-- pip
-- psutil
-- s-tui
-- pywinrm[kerberos]
-- requests-kerberos
-- requests-ntlm
-- pywinrm[credssp]
-- requests-credssp
-- pypsrp
-- yamllint
-- ansible-lint
-- jmespath
-- jsonlint
-- gittyleaks
-- kube-hunter
-- pipdeptree
-- oci-cli
+  - pip
+  - psutil
+  - s-tui
+  - pywinrm[kerberos]
+  - requests-kerberos
+  - requests-ntlm
+  - pywinrm[credssp]
+  - requests-credssp
+  - pypsrp
+  - yamllint
+  - ansible-lint
+  - jmespath
+  - jsonlint
+  - gittyleaks
+  - kube-hunter
+  - pipdeptree
+  - oci-cli
 unpack:
-- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
-  destination: kubestr
-  source: kubestr
-  destination_file: kubestr.tar.gz
-  folder:
-- url: https://github.com/FairwindsOps/polaris/releases/download/5.0.0/polaris_darwin_amd64.tar.gz
-  destination: polaris
-  source: polaris
-  destination_file: polaris.tar.gz
-  folder:
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
+    destination: kubestr
+    source: kubestr
+    destination_file: kubestr.tar.gz
+    folder:
+  - url: https://github.com/FairwindsOps/polaris/releases/download/5.1.0/polaris_darwin_amd64.tar.gz
+    destination: polaris
+    source: polaris
+    destination_file: polaris.tar.gz
+    folder:
+  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_macOS-64bit.tar.gz
+    destination: dockle
+    source: dockle
+    destination_file: dockle.tar.gz
+    folder:
