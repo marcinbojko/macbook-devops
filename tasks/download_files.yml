@@ -1,8 +1,13 @@
-- name: task_display_processing_item
-  debug:
+- name: task_display_processing_item_x86_64_darwin
+  ansible.builtin.debug:
     msg: "Processing: {{ item.url }}"
+  when: ansible_architecture == 'x86_64'
+- name: task_display_processing_item_arm64_darwin
+  ansible.builtin.debug:
+    msg: "Processing: {{ item.url_arm64 }}"
+  when: ansible_architecture == 'arm64'
 - name: "task_empty_unpack_{{ item.destination }}"
-  file:
+  ansible.builtin.file:
     path: "{{ folder_item }}"
     state: absent
   loop:
@@ -15,7 +20,7 @@
   register: r_task_empty_unpack
   until: r_task_empty_unpack is defined and r_task_empty_unpack is success
 - name: task_create_folder_structure
-  file:
+  ansible.builtin.file:
     path: "{{ folder_item }}"
     state: directory
     mode: "0644"
@@ -29,8 +34,8 @@
   register: r_task_create_folder_structure
   until: r_task_create_folder_structure is defined and r_task_create_folder_structure is success
   changed_when: false
-- name: task_download_files
-  get_url:
+- name: task_download_files_x86_64_darwin
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
     mode: "0644"
@@ -38,7 +43,17 @@
   delay: "{{ delay_time }}"
   register: r_task_download_files
   until: r_task_download_files is defined and r_task_download_files is success
-  when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success
+  when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success and ansible_architecture == 'x86_64'
+- name: task_download_files_arm64_darwin
+  ansible.builtin.get_url:
+    url: "{{ item.url_m1 }}"
+    dest: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
+    mode: "0644"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_download_files
+  until: r_task_download_files is defined and r_task_download_files is success
+  when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success and ansible_architecture == 'arm64'
 - name: task_unpack_files
   ansible.builtin.shell:
     chdir: "{{ unpack_folder }}/downloads"
@@ -49,7 +64,7 @@
   until: r_task_unpack_files is defined and r_task_unpack_files is success
   when: r_task_download_files is defined and r_task_download_files is success
 - name: task_copy_files
-  copy:
+  ansible.builtin.copy:
     src: "{{ unpack_folder }}/unpack/{{ item.folder }}/{{ item.source }}"
     dest: "{{ bin_path }}/{{ item.destination }}"
     remote_src: true

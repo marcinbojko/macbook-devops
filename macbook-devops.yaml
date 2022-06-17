@@ -7,8 +7,9 @@
     install_gcloud_tools: true                  # install Google Cloud tools
     install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
     install_aws_tools: true                     # install Amazon Cloud tools
+    install_extra_tools: true                   # install extra tools (unpack section)
     update_homebrew: true                       # should be update brew itself in first step
-    update_homebrew_packages: true                 # should we upgrade all brew packages
+    update_homebrew_packages: true              # should we upgrade all brew packages
     retries_count: 2                            # how many retries
     delay_time: 3                               # delay time in seconds between retries
   become: false
@@ -41,8 +42,12 @@
       when: ansible_distribution is defined
       tags:
         - assert
+    - name: set_fact_for_architecture
+      ansible.builtin.set_fact:
+        ansible_architecture: "{{ ansible_architecture | default('x86_64', true) }}"
+      when: r_setup_status is success and ansible_distribution is defined
     - name: load_playbook_vars_depending_on_distribution
-      include_vars:
+      ansible.builtin.include_vars:
         dir: .
         files_matching: "macbook-devops_.*.yaml"
       any_errors_fatal: true
@@ -57,11 +62,12 @@
         - assert
   tasks:
     - name: display_basic_information
-      debug:
+      ansible.builtin.debug:
         msg:
           - "MacOSX major version         : {{ ansible_distribution_major_version }}"
           - "MacOSX release               : {{ ansible_distribution_release }}"
           - "Ansible version              : {{ ansible_version.full }}"
+          - "Ansible architecture         : {{ ansible_architecture }}"
     - name: wait_15_seconds
       ansible.builtin.pause:
         seconds: 1
@@ -94,6 +100,7 @@
       register: r_homebrew_formulae_essential
       until: r_homebrew_formulae_essential is success
       any_errors_fatal: false
+      ignore_errors: true
       tags:
         - packages
         - base
@@ -111,6 +118,7 @@
       register: r_homebrew_formulae_optional
       until: r_homebrew_formulae_optional is success
       any_errors_fatal: false
+      ignore_errors: true
       tags:
         - packages
         - base
@@ -130,6 +138,7 @@
       register: r_homebrew_casks
       until: r_homebrew_casks is success
       any_errors_fatal: false
+      ignore_errors: true
       tags:
         - packages
         - base
@@ -149,6 +158,7 @@
       register: r_homebrew_casks_optional
       until: r_homebrew_casks_optional is success
       any_errors_fatal: false
+      ignore_errors: true
       tags:
         - packages
         - base
@@ -171,6 +181,7 @@
           until: r_homebrew_azure_formulae is success
           when: (homebrew_azure.formulae is defined and homebrew_azure.formulae is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - formulae
@@ -189,6 +200,7 @@
           until: r_homebrew_azure_casks is success
           when: (homebrew_azure.casks is defined and homebrew_azure.casks is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - casks
@@ -211,6 +223,7 @@
           until: r_homebrew_aws_formulae is success
           when: (homebrew_aws.formulae is defined and homebrew_aws.formulae is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - formulae
@@ -229,6 +242,7 @@
           until: r_homebrew_aws_casks is success
           when: (homebrew_aws.casks is defined and homebrew_aws.casks is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - casks
@@ -251,6 +265,7 @@
           until: r_homebrew_oci_formulae is success
           when: (homebrew_oci.formulae is defined and homebrew_oci.formulae is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - formulae
@@ -269,6 +284,7 @@
           until: r_homebrew_oci_casks is success
           when: (homebrew_oci.casks is defined and homebrew_oci.casks is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - casks
@@ -291,6 +307,7 @@
           until: r_homebrew_gcloud_formulae is success
           when: (homebrew_gcloud.formulae is defined and homebrew_gcloud.formulae is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - formulae
@@ -309,6 +326,7 @@
           until: r_homebrew_gcloud_casks is success
           when: (homebrew_gcloud.casks is defined and homebrew_gcloud.casks is iterable)
           any_errors_fatal: false
+          ignore_errors: true
           tags:
             - packages
             - casks
@@ -327,6 +345,7 @@
       register: r_update_homebrew_packages
       until: r_update_homebrew_packages is success
       any_errors_fatal: false
+      ignore_errors: true
       when: update_homebrew_packages
       tags:
         - packages
@@ -335,7 +354,7 @@
         - upgrade
         - essential
     - name: install_and_upgrade_pip_packages
-      pip:
+      ansible.builtin.pip:
         name: "{{ item }}"
         extra_args: --upgrade --upgrade-strategy=only-if-needed --ignore-installed
         executable: "{{ pip_executable }}"
@@ -362,5 +381,9 @@
             - downloads
             - apps
             - tasks
+      when: (ansible_architecture is defined) and (install_extra_tools is defined and install_extra_tools)
       tags:
-        - always
+        - extra_tools
+        - downloads
+        - x86_64
+        - unpack

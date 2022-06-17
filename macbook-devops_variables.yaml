@@ -2,71 +2,98 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
 homebrew_formulae_essential:
+  - name: ansible
+  - name: ansible-lint
+  - name: arping
+  - name: ca-certificates
   - name: cowsay
+  - name: ctop
+  - name: esolitos/ipa/sshpass
+  - name: gdbm
+  - name: gettext
   - name: git
+  - name: git-lfs
+  - name: gnu-sed
+  - name: gnu-tar
+  - name: gnupg
+  - name: gnutls
   - name: gpg
   - name: helm
+  - name: htop
   - name: httpie
+  - name: iftop
   - name: iperf3
   - name: jq
   - name: kubectl
+  - name: libgcrypt
+  - name: libffi
+  - name: libnet
+  - name: mc
+  - name: minikube
+  - name: mtr
+  - name: nano
+  - name: ncdu
+  - name: ncurses
+  - name: lima
+  - name: netcat
   - name: nmap
+  - name: npm
   - name: openssl
   - name: packer
   - name: pv
   - name: rke
   - name: terraform
-  - name: wget
-  - name: zsh
-  - name: mc
-  - name: hadolint
-  - name: mtr
-  - name: nano
-  - name: gnu-tar
-  - name: vault
-  - name: htop
-  - name: kubeconform
-  - name: ctop
-  - name: iftop
   - name: testdisk
   - name: testssl
-  - name: arping
-  - name: esolitos/ipa/sshpass
-  - name: minikube
+  - name: vault
+  - name: watch
+  - name: wget
+  - name: xz
+  - name: zsh
 homebrew_formulae_optional:
-  - name: git-lfs
-  - name: skaffold
-  - name: tflint
-  - name: tfsec
+  - name: dive
+  - name: ffuf
   - name: ffuf
   - name: gping
   - name: hadolint
-  - name: krew
+  - name: hadolint
   - name: k3sup
+  - name: krew
+  - name: kubeconform
+  - name: kubernetes-cli
+  - name: skaffold
+  - name: tflint
+  - name: tfsec
 homebrew_casks:
   - name: dropbox
   - name: gitkraken
   - name: google-chrome
   - name: lens
-  - name: obsidian
   - name: postman
+  - name: powershell
+  - name: rancher
+  - name: slack
+  - name: synergy
   - name: tabby
+  - name: vagrant
   - name: virtualbox
   - name: virtualbox-extension-pack
   - name: visual-studio-code
-  - name: zoom
-  - name: synergy
-  - name: rancher
-  - name: vagrant
-  - name: powershell
-  - name: zenmap
   - name: xca
+  - name: zenmap
 homebrew_casks_optional:
+  - name: keystore-explorer
+  - name: ngrok
+  - name: obsidian
+  - name: packetsender
   - name: spotify
   - name: thetimemachinemechanic
-  - name: ngrok
-  - name: packetsender
+  - name: tigervnc-viewer
   - name: wireshark
+  - name: zoom
+  - name: insync
+  - name: homebrew/cask-versions/hamsket-nightly
+  - name: brave-browser
 homebrew_azure:
   casks: []
   formulae:
@@ -95,25 +122,26 @@ pip:
   - requests-credssp
   - pypsrp
   - yamllint
-  - ansible-lint
   - jmespath
   - jsonlint
   - gittyleaks
   - kube-hunter
   - pipdeptree
-  - oci-cli
 unpack:
   - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_arm64.tar.gz
     destination: kubestr
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/5.1.0/polaris_darwin_amd64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz
     folder:
   - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_macOS-64bit.tar.gz
+    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_macOS-ARM64.tar.gz
     destination: dockle
     source: dockle
     destination_file: dockle.tar.gz

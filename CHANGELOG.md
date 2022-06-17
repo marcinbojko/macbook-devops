@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.4.0
+
+* added more packages to be in sync with [https://github.com/marcinbojko/linux_mint](https://github.com/marcinbojko/linux_mint)
+* introduced separation for `x86_64` and `arm64` architecture
+
 ## Version 0.3.0
 
 * [FORMULA] added krew [https://github.com/kubernetes-sigs/krew](https://github.com/kubernetes-sigs/krew)

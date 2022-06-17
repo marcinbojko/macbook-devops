@@ -34,6 +34,7 @@ ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "
 |install_gcloud_tools|Install google-cloud-sdk|true|
 |install_oci_tools|Install oci-cli|true|
 |install_aws_tools|Install AWS-Cli|true|
+|install_extra_tools|Install extra (unpack section) tools|
 |update_homebrew|Should we install homebrew by itself|true|
 |update_homebrew_packages|Should we upgrade formulae and casks|true|
 |retries_count|how many times retry tasks|2|
@@ -63,6 +64,7 @@ example of downloading kubestr file and putting it into `bin_path`
 ```yaml
 unpack:
 - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
+  url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_arm64.tar.gz
   destination: kubestr
   source: kubestr
   destination_file: kubestr.tar.gz
@@ -75,7 +77,7 @@ unpack:
 * add system settings
 * add npm
 * add external packages not available through homebrew or AppStore
-* add M1 chip files
+~~* add M1 chip files ~~
 
 ## Known issues
 
