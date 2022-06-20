@@ -89,6 +89,23 @@
         - itself
         - homebrew
         - essential
+    # Install essential taps
+    - name: install_homebrew_taps
+      community.general.homebrew_tap:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('present') }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_install_taps
+      until: r_install_taps is success
+      any_errors_fatal: false
+      loop: "{{ homebrew_taps }}"
+      tags:
+        - packages
+        - base
+        - taps
+        - homebrew
+        - essential
     # Install homebrew essential formulae
     - name: install_homebrew_formulae
       community.general.homebrew:

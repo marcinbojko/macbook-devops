@@ -1,6 +1,8 @@
 # MacOSX variables file
 ---
 ansible_python_interpreter: /usr/bin/python3
+homebrew_taps:
+  - name: anchore/syft
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
@@ -25,16 +27,16 @@ homebrew_formulae_essential:
   - name: iperf3
   - name: jq
   - name: kubectl
-  - name: libgcrypt
   - name: libffi
+  - name: libgcrypt
   - name: libnet
+  - name: lima
   - name: mc
   - name: minikube
   - name: mtr
   - name: nano
   - name: ncdu
   - name: ncurses
-  - name: lima
   - name: netcat
   - name: nmap
   - name: npm
@@ -45,23 +47,28 @@ homebrew_formulae_essential:
   - name: terraform
   - name: testdisk
   - name: testssl
+  - name: trivy
   - name: vault
   - name: watch
   - name: wget
   - name: xz
   - name: zsh
 homebrew_formulae_optional:
+  - name: asciinema
   - name: dive
   - name: ffuf
   - name: ffuf
   - name: gping
   - name: hadolint
   - name: hadolint
+  - name: imagemagick
   - name: k3sup
   - name: krew
   - name: kubeconform
   - name: kubernetes-cli
+  - name: links
   - name: skaffold
+  - name: syft
   - name: tflint
   - name: tfsec
 homebrew_casks:
@@ -82,6 +89,9 @@ homebrew_casks:
   - name: xca
   - name: zenmap
 homebrew_casks_optional:
+  - name: brave-browser
+  - name: homebrew/cask-versions/hamsket-nightly
+  - name: insync
   - name: keystore-explorer
   - name: ngrok
   - name: obsidian
@@ -90,10 +100,8 @@ homebrew_casks_optional:
   - name: thetimemachinemechanic
   - name: tigervnc-viewer
   - name: wireshark
+  - name: wpsoffice
   - name: zoom
-  - name: insync
-  - name: homebrew/cask-versions/hamsket-nightly
-  - name: brave-browser
 homebrew_azure:
   casks: []
   formulae:

@@ -4,6 +4,11 @@ Ansible repository for creating DevOps MacBook, based on [https://github.com/mar
 
 ## Usage
 
+### Architecture
+
+Playbook introduces separation of amd64 and arm64 architectures based on ansible facts. Due to fact I do not have M1 chip based Mac, it's possible to have some applications existing in only one architecture type.
+In time, I'll separate them by having dirrerent test. If you have an information about these specific packages belinging to only one of architectures, please let me know
+
 ### Enable `ssh` aka `remote access`
 
 ![ssh](./images/ssh.png)
@@ -77,7 +82,7 @@ unpack:
 * add system settings
 * add npm
 * add external packages not available through homebrew or AppStore
-~~* add M1 chip files ~~
+* ~~add M1 chip files~~
 
 ## Known issues
 

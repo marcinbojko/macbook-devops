@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.5.0
+
+* [CASKS] added `wpsoffice` - [https://www.wps.com/](https://www.wps.com/)
+* [FORMULA] added `links`
+* [FORMULA] added `asciinema`
+* [FORMULA] added `imagemagick`
+* [FORMULA] added `syft` - [https://github.com/anchore/syft](https://github.com/anchore/syft)
+* [FORMULA] added `trivy` - [https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy)
+* [TAPS] added `homebrew_taps` section in variables
+* [TAPS] added `anchore/syft`
+
 ## Version 0.4.0
 
 * added more packages to be in sync with [https://github.com/marcinbojko/linux_mint](https://github.com/marcinbojko/linux_mint)
