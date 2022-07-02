@@ -4,5 +4,6 @@ skip_list:
   - git-latest
   - experimental
   - command-instead-of-module
+  - yaml
 exclude_paths:
   - .github/

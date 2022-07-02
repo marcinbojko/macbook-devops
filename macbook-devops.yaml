@@ -1,17 +1,19 @@
 # Prepares MacOSX desktop.
-# Tested only on Intel-based chips
+# Tested on amd64 and arm64 MacOSX.
 - name: prepare_macosx_desktop
   hosts: all
   vars:
-    install_azure_tools: true                   # install Microsoft Azure tools
-    install_gcloud_tools: true                  # install Google Cloud tools
-    install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
-    install_aws_tools: true                     # install Amazon Cloud tools
-    install_extra_tools: true                   # install extra tools (unpack section)
-    update_homebrew: true                       # should be update brew itself in first step
-    update_homebrew_packages: true              # should we upgrade all brew packages
-    retries_count: 2                            # how many retries
     delay_time: 3                               # delay time in seconds between retries
+    install_aws_tools: true                     # install Amazon Cloud tools
+    install_azure_tools: true                   # install Microsoft Azure tools
+    install_extra_tools: true                   # install extra tools (unpack section)
+    install_gcloud_tools: true                  # install Google Cloud tools
+    install_npm: true                           # install npm packages
+    install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
+    install_rosetta: true                       # install Rosetta 2
+    retries_count: 2                            # how many retries
+    update_homebrew_packages: true              # should we upgrade all brew packages
+    update_homebrew: true                       # should be update brew itself in first step
   become: false
   gather_facts: false
   pre_tasks:
@@ -26,7 +28,7 @@
     # setup module - we need these facts
     - name: run_initial_setup_instead_of_gather_facts
       ansible.builtin.setup:
-        gather_timeout: 30
+        gather_timeout: 45
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: r_setup_status
@@ -73,6 +75,20 @@
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
     # Start
+    - name: install_rosetta
+      ansible.builtin.shell:
+        cmd: "/usr/sbin/softwareupdate --install-rosetta --agree-to-license"
+      when: (install_rosetta is defined and install_rosetta is true) and (ansible_architecture is defined and ansible_architecture == 'arm64')
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_install_rosetta
+      until: r_install_rosetta is success
+      changed_when: false
+      any_errors_fatal: false
+      tags:
+        - install
+        - essential
+        - softwareupdate
     # Update homebrew
     - name: update_homebrew
       community.general.homebrew:
@@ -182,6 +198,28 @@
         - homebrew
         - casks
         - optional
+  # Install homebrew casks for amd64 or arm64 with rosetta 2
+    - name: install_homebrew_casks_amd64
+      community.general.homebrew_cask:
+        name: "{{ item.name }}"
+        state: "{{ item.state | default ('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        sudo_password: "{{ sudo_password }}"
+      loop: "{{ homebrew_casks_amd64 }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_homebrew_casks_amd64
+      until: r_homebrew_casks_amd64 is success
+      when: (ansible_architecture is defined and ansible_architecture == 'amd64') or (ansible_architecture is defined and ansible_architecture == 'arm64' and r_install_rosetta is defined and r_install_rosetta is success) # noqa 204
+      any_errors_fatal: false
+      ignore_errors: true
+      tags:
+        - packages
+        - base
+        - homebrew
+        - casks
+        - essential
+        - rosetta
   # Install homebrew azure formulae
     - name: install_azure_formulae_and_casks
       block:
@@ -387,6 +425,23 @@
         - packages
         - base
         - python
+    - name: install_npm_packages
+      community.general.npm:
+        name: "{{ item.name|string }}"
+        state: "{{ item.state|string }}"
+        global: yes
+      loop: "{{ npm_packages }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: r_install_npm
+      until: r_install_npm is success
+      any_errors_fatal: false
+      when: install_npm is defined and install_npm
+      environment:
+        PATH: "/usr/local/bin:/opt/homebrew/bin:{{ ansible_env.PATH }}"
+      tags:
+        - packages
+        - npm
     # download and unflatten
     - name: download_unarchive_flatten
       include_tasks: ./tasks/download_files.yml
@@ -402,5 +457,5 @@
       tags:
         - extra_tools
         - downloads
-        - x86_64
+        - amd64
         - unpack

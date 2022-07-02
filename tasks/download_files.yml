@@ -46,7 +46,7 @@
   when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success and ansible_architecture == 'x86_64'
 - name: task_download_files_arm64_darwin
   ansible.builtin.get_url:
-    url: "{{ item.url_m1 }}"
+    url: "{{ item.url_arm64 }}"
     dest: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
     mode: "0644"
   retries: "{{ retries_count }}"

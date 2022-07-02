@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 0.5.5
+
+* Fixed differences in packages between arm64 and amd64 architectures
+* Tested under real arm64 Macbook architecture
+* fixed wrong variable name for arm64 architecture links in `download_files` task
+* added `npm` packages section
+* [SOFTWARE] added `rosetta2` optional install
+* [FORMULA] added `qemu`
+* [FORMULA] added `datree`
+* [CASKS] added `firefox`
+* [CASKS] added `enpass`
+* [APPLICATION] bump `kubestr` to version 0.4.33
+
 ## Version 0.5.0
 
 * [CASKS] added `wpsoffice` - [https://www.wps.com/](https://www.wps.com/)

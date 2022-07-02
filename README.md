@@ -21,7 +21,16 @@ ansible_port: 22
 ansible_connection: ssh
 ```
 
-### Install xcode
+### Install xcode and accept license
+
+```bash
+sudo xcode-select --install
+sudo xcodebuild -license accept
+```
+
+[https://apps.apple.com/us/app/xcode/id497799835?mt=12](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
+
+or get it from AppStore
 
 ### Run playbook
 
@@ -35,15 +44,17 @@ ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "
 
 |Variable|Descripton|Default|
 |--------|----------|-------|
-|install_azure_tools|Install azure-cli|true|
-|install_gcloud_tools|Install google-cloud-sdk|true|
-|install_oci_tools|Install oci-cli|true|
-|install_aws_tools|Install AWS-Cli|true|
-|install_extra_tools|Install extra (unpack section) tools|
-|update_homebrew|Should we install homebrew by itself|true|
-|update_homebrew_packages|Should we upgrade formulae and casks|true|
-|retries_count|how many times retry tasks|2|
 |delay_time|how many seconds wait between attempts|3|
+|install_aws_tools|Install aws-cli|true|
+|install_azure_tools|Install azure-cli|true|
+|install_extra_tools|Install extra (unpack section) tools|true|
+|install_gcloud_tools|Install google-cloud-sdk|true|
+|install_npm|Install npm packages|true|
+|install_oci_tools|Install oci-cli|true|
+|install_rosetta|Install Rosetta 2 package|true|
+|retries_count|how many times retry tasks|2|
+|update_homebrew_packages|Should we upgrade formulae and casks|true|
+|update_homebrew|Should we install homebrew by itself|true|
 
 #### tasks
 
@@ -80,11 +91,23 @@ unpack:
 
 * add more tools
 * add system settings
-* add npm
-* add external packages not available through homebrew or AppStore
+* add upgrade packages options
+* add custom files allowing you to add or exlude specific packages without modyfing playbook files directly
+* ~~add npm~~
+* ~~add external packages not available through homebrew or AppStore~~
 * ~~add M1 chip files~~
 
 ## Known issues
 
 Q: Installation of homebrew casks hangs
 A: `sudo_password` variable is not set or set to improper value
+
+Q: Some applications are failing install on M1 chip (for example: `virtualbox`)
+A: Some applications are still not available for ARM64 architecture, even with Rosetta 2
+
+Q: Ansible hangs on `run_initial_setup_instead_of_gather_facts` step.
+A: Check if you'd accepted xcode license. Check and delete `.ansible` folder in your users home directory. Restart Macbook. Blame Apple.
+
+## Participate
+
+If you feel there is another package/setting/feature worth mentioning - please contact me. If you'd like to add PR - please add as smallest portions as possible (for example: package after package or feature after feature )
