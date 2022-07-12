@@ -54,6 +54,7 @@ homebrew_formulae_essential:
   - name: wget
   - name: xz
   - name: zsh
+  - name: mas
 homebrew_formulae_optional:
   - name: asciinema
   - name: datree
@@ -76,9 +77,10 @@ homebrew_formulae_optional:
   - name: tfsec
 homebrew_casks:
   - name: dropbox
+  - name: enpass
+  - name: firefox
   - name: gitkraken
   - name: google-chrome
-  - name: firefox
   - name: lens
   - name: postman
   - name: rancher
@@ -86,6 +88,7 @@ homebrew_casks:
   - name: tabby
   - name: visual-studio-code
   - name: xca
+  - name: utm
 homebrew_casks_amd64:
   - name: powershell
   - name: vagrant
@@ -94,17 +97,23 @@ homebrew_casks_amd64:
   - name: zenmap
 homebrew_casks_optional:
   - name: brave-browser
+  - name: calibre
+  - name: ccleaner
   - name: homebrew/cask-versions/hamsket-nightly
   - name: insync
   - name: keystore-explorer
+  - name: ksnip
   - name: ngrok
+  - name: numi
   - name: obsidian
   - name: packetsender
   - name: spotify
   - name: thetimemachinemechanic
   - name: tigervnc-viewer
+  - name: vlc
   - name: wireshark
   - name: wpsoffice
+  - name: parallels-virtualization-sdk
   - name: zoom
 homebrew_azure:
   casks: []
@@ -171,3 +180,19 @@ unpack:
     source: kubent
     destination_file: kubent.tar.gz
     folder:
+appstore_packages:
+  - name: "The Unarchiver"
+    id: 425424353
+    state: present
+  - name: "Microsoft Remote Desktop"
+    id: 1295203466
+    state: present
+  - name: "CopyClip"
+    id: 595191960
+    state: present
+osx_defaults:
+  - domain: com.apple.backupd-auto.plist
+    key: StartInterval
+    type: int
+    value: 7200
+    state: present

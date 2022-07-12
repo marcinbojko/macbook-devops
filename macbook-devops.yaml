@@ -5,6 +5,7 @@
   vars:
     delay_time: 3                               # delay time in seconds between retries
     install_aws_tools: true                     # install Amazon Cloud tools
+    install_appstore: true                      # install App Store apps
     install_azure_tools: true                   # install Microsoft Azure tools
     install_extra_tools: true                   # install extra tools (unpack section)
     install_gcloud_tools: true                  # install Google Cloud tools
@@ -388,6 +389,24 @@
             - homebrew
             - gcloud
       when: install_gcloud_tools is defined and install_gcloud_tools
+    - name: install_appstore_packages
+      community.general.mas:
+        id: "{{ item.id }}"
+        state: "{{ item.state | default ('present') }}"
+        upgrade_all: no
+      environment:
+        PATH: "/usr/local/bin:/opt/homebrew/bin:{{ ansible_env.PATH }}"
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      loop: "{{ appstore_packages if appstore_packages is iterable }}"
+      register: r_appstore_packages
+      until: r_appstore_packages is success
+      when: (appstore_packages is defined and appstore_packages is iterable) and (install_appstore_packages is defined and install_appstore_packages)
+      any_errors_fatal: false
+      ignore_errors: true
+      tags:
+        - packages
+        - appstore
   # Update homebrew packages
     - name: update_homebrew_packages
       community.general.homebrew:

@@ -32,10 +32,24 @@ sudo xcodebuild -license accept
 
 or get it from AppStore
 
-### Run playbook
+### Run playbook (remotely)
 
 ```bash
 ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "your_user_password"}'
+```
+
+### Run playbook locally - extra steps
+
+#### Install Homembrew
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### Install ansible
+
+```bash
+brew install ansible
 ```
 
 ### Variables
@@ -45,6 +59,7 @@ ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "
 |Variable|Descripton|Default|
 |--------|----------|-------|
 |delay_time|how many seconds wait between attempts|3|
+|install_appstore|Install Appstore Apps|true|
 |install_aws_tools|Install aws-cli|true|
 |install_azure_tools|Install azure-cli|true|
 |install_extra_tools|Install extra (unpack section) tools|true|
@@ -70,6 +85,13 @@ ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "
 ### Casks
 
 ### Tasks
+
+### AppStore Apps
+
+|Name|Description|URL|
+|----|-----------|---|
+|The Unarchiver|Open any archive in seconds|[https://theunarchiver.com/](https://theunarchiver.com/)|
+|Microsoft Remote Desktop|RDP|[https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12)|
 
 #### `download_files`
 

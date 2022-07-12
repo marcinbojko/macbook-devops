@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 0.5.6
+
+* [CASKS] added `ksnip`
+* [CASKS] added `kvlc`
+* [CASKS] added `ccleaner`
+* [CASKS] added `enpass`
+* [CASKS] added `calibre`
+* [CASKS] added `utm`
+* [CASKS] added `numi`
+* [CASKS] added `parallels-virtualization-sdk`
+* [FORMULA] added `mas`
+* added possibility to install AppStore Applications through playbook
+
 ## Version 0.5.5
 
 * Fixed differences in packages between arm64 and amd64 architectures
