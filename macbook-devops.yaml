@@ -12,9 +12,11 @@
     install_npm: true                           # install npm packages
     install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
     install_rosetta: true                       # install Rosetta 2
+    install_osx_defaults: true                  # install OSX defaults
     retries_count: 2                            # how many retries
     update_homebrew_packages: true              # should we upgrade all brew packages
     update_homebrew: true                       # should be update brew itself in first step
+    ansible_become_password: "{{ sudo_password }}"
   become: false
   gather_facts: false
   pre_tasks:
@@ -76,6 +78,7 @@
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
     # Start
+
     - name: install_rosetta
       ansible.builtin.shell:
         cmd: "/usr/sbin/softwareupdate --install-rosetta --agree-to-license"
@@ -468,6 +471,8 @@
       args:
         apply:
           become: true
+          become_user: root
+          become_method: sudo
           tags:
             - downloads
             - apps
@@ -476,5 +481,19 @@
       tags:
         - extra_tools
         - downloads
-        - amd64
         - unpack
+    - name: manage_osx_defaults
+      community.general.osx_defaults:
+        domain: "{{ item.domain }}"
+        key: "{{ item.key }}"
+        type: "{{ item.type }}"
+        value: "{{ item.value }}"
+        state: "{{ item.state |default ('present') }}"
+      loop: "{{ osx_defaults }}"
+      when: osx_defaults is iterable and install_osx_defaults
+      register: r_osx_defaults
+      until: r_osx_defaults is success
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      tags:
+        - osx_defaults

@@ -66,6 +66,7 @@ brew install ansible
 |install_gcloud_tools|Install google-cloud-sdk|true|
 |install_npm|Install npm packages|true|
 |install_oci_tools|Install oci-cli|true|
+|install_osx_defaults|Change default OSX settings through `osx_defaults` module|true|
 |install_rosetta|Install Rosetta 2 package|true|
 |retries_count|how many times retry tasks|2|
 |update_homebrew_packages|Should we upgrade formulae and casks|true|
@@ -75,8 +76,8 @@ brew install ansible
 
 |Variable|Descripton|Default|
 |--------|----------|-------|
-|unpack_folder|where to store downloaded archives| /tmp/macbook|
 |bin_path|where to store executable files| /usr/local/bin|
+|unpack_folder|where to store downloaded archives| /tmp/macbook|
 
 ## Content
 
@@ -85,13 +86,6 @@ brew install ansible
 ### Casks
 
 ### Tasks
-
-### AppStore Apps
-
-|Name|Description|URL|
-|----|-----------|---|
-|The Unarchiver|Open any archive in seconds|[https://theunarchiver.com/](https://theunarchiver.com/)|
-|Microsoft Remote Desktop|RDP|[https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12)|
 
 #### `download_files`
 
@@ -109,10 +103,26 @@ unpack:
   folder:
 ```
 
+### AppStore Apps
+
+|Name|Description|URL|
+|----|-----------|---|
+|CopyClip|Clipboard Manager|[https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12](https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12)|
+|Microsoft Remote Desktop|RDP|[https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12)|
+|The Unarchiver|Open any archive in seconds|[https://theunarchiver.com/](https://theunarchiver.com/)|
+
+### Change OSX defaults
+
+Using `osx_defaults` module you can set any OSX settings. Remember to relogin afterwards
+
+|Name|Key|Value|Type|Description|
+|----|---|-----|----|-----------|
+|com.apple.backupd-auto.plist|StartInterval|14400|int|Frequency of a TimeMachine backups in seconds|
+
 ## ToDO
 
-* add more tools
-* add system settings
+* ~~add more tools~~
+* ~~add system settings~~
 * add upgrade packages options
 * add custom files allowing you to add or exlude specific packages without modyfing playbook files directly
 * ~~add npm~~

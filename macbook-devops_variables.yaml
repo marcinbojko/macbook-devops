@@ -156,14 +156,14 @@ npm_packages:
   - name: dockerfilelint
     state: latest
 unpack:
-  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.33/kubestr_0.4.33_MacOS_amd64.tar.gz
-    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.33/kubestr_0.4.33_MacOS_arm64.tar.gz
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_MacOS_arm64.tar.gz
     destination: kubestr
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_darwin_amd64.tar.gz
-    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_darwin_arm64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz
@@ -174,8 +174,8 @@ unpack:
     source: dockle
     destination_file: dockle.tar.gz
     folder:
-  - url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-23-g73fb3a7/kubent-nightly-0.5.1-23-g73fb3a7-darwin-amd64.tar.gz
-    url_arm64: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-23-g73fb3a7/kubent-nightly-0.5.1-23-g73fb3a7-darwin-arm64.tar.gz
+  - url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-25-g2321172/kubent-nightly-0.5.1-25-g2321172-darwin-amd64.tar.gz
+    url_arm64: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-25-g2321172/kubent-nightly-0.5.1-25-g2321172-darwin-arm64.tar.gz
     destination: kubent
     source: kubent
     destination_file: kubent.tar.gz
@@ -194,5 +194,5 @@ osx_defaults:
   - domain: com.apple.backupd-auto.plist
     key: StartInterval
     type: int
-    value: 7200
+    value: 14400
     state: present

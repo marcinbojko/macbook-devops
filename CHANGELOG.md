@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.6.0
+
+* added possibility to set osx_defaults through `osx_defaults` module
+* added variable `install_osx_defaults`
+* added variable `install_appstore`
+* [APPLICATION] upgraded `kubestr` to version 0.4.34
+* [APPLICATION] upgraded `polaris` to version 7.0.1
+* [APPLICATION] upgraded `kubent` `nightly-0.5.1-25-g2321172`
+
 ## Version 0.5.6
 
 * [CASKS] added `ksnip`
