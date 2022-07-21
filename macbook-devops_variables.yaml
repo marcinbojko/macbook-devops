@@ -3,6 +3,7 @@
 ansible_python_interpreter: /usr/bin/python3
 homebrew_taps:
   - name: anchore/syft
+  - name: turbot/tap
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
@@ -31,6 +32,7 @@ homebrew_formulae_essential:
   - name: libgcrypt
   - name: libnet
   - name: lima
+  - name: mas
   - name: mc
   - name: minikube
   - name: mtr
@@ -54,7 +56,6 @@ homebrew_formulae_essential:
   - name: wget
   - name: xz
   - name: zsh
-  - name: mas
 homebrew_formulae_optional:
   - name: asciinema
   - name: datree
@@ -71,6 +72,7 @@ homebrew_formulae_optional:
   - name: kubernetes-cli
   - name: links
   - name: skaffold
+  - name: steampipe
   - name: syft
   - name: synergy-core
   - name: tflint
@@ -84,11 +86,12 @@ homebrew_casks:
   - name: lens
   - name: postman
   - name: rancher
+  - name: remote-desktop-manager-free
   - name: slack
   - name: tabby
+  - name: utm
   - name: visual-studio-code
   - name: xca
-  - name: utm
 homebrew_casks_amd64:
   - name: powershell
   - name: vagrant
@@ -96,6 +99,7 @@ homebrew_casks_amd64:
   - name: virtualbox-extension-pack
   - name: zenmap
 homebrew_casks_optional:
+  - name: angry-ip-scanner
   - name: brave-browser
   - name: calibre
   - name: ccleaner
@@ -107,14 +111,15 @@ homebrew_casks_optional:
   - name: numi
   - name: obsidian
   - name: packetsender
+  - name: parallels-virtualization-sdk
   - name: spotify
   - name: thetimemachinemechanic
   - name: tigervnc-viewer
   - name: vlc
   - name: wireshark
   - name: wpsoffice
-  - name: parallels-virtualization-sdk
   - name: zoom
+  - name: zulu17
 homebrew_azure:
   casks: []
   formulae:
@@ -193,6 +198,11 @@ appstore_packages:
 osx_defaults:
   - domain: com.apple.backupd-auto.plist
     key: StartInterval
-    type: int
-    value: 14400
+    type: string
+    value: "14400"
+    state: present
+  - domain: com.apple.finder
+    key: AppleShowAllFiles
+    type: bool
+    value: true
     state: present

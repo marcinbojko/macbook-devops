@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.6.1
+
+* [CASKS] added `remote-desktop-manager-free`
+* [CASKS] added `angry-ip-scanner`
+* [CASKS] added `zulu17`
+* [FORMULA] added `steampipe` [https://github.com/turbot/steampipe](https://github.com/turbot/steampipe)
+* [TAPS] added turbot/tap
+
 ## Version 0.6.0
 
 * added possibility to set osx_defaults through `osx_defaults` module

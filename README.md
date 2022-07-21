@@ -117,7 +117,7 @@ Using `osx_defaults` module you can set any OSX settings. Remember to relogin af
 
 |Name|Key|Value|Type|Description|
 |----|---|-----|----|-----------|
-|com.apple.backupd-auto.plist|StartInterval|14400|int|Frequency of a TimeMachine backups in seconds|
+|com.apple.backupd-auto.plist|StartInterval|14400|string|Frequency of a TimeMachine backups in seconds|
 
 ## ToDO
 

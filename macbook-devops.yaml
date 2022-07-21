@@ -78,7 +78,6 @@
         seconds: 1
         prompt: "Check variables - last chance to abort in 15 seconds"
     # Start
-
     - name: install_rosetta
       ansible.builtin.shell:
         cmd: "/usr/sbin/softwareupdate --install-rosetta --agree-to-license"
@@ -495,5 +494,7 @@
       until: r_osx_defaults is success
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
+      become: true
       tags:
         - osx_defaults
+
