@@ -5,12 +5,12 @@
   vars:
     delay_time: 3                               # delay time in seconds between retries
     install_aws_tools: true                     # install Amazon Cloud tools
-    install_appstore: true                      # install App Store apps
+    install_appstore_packages: true             # install App Store apps
     install_azure_tools: true                   # install Microsoft Azure tools
     install_extra_tools: true                   # install extra tools (unpack section)
     install_gcloud_tools: true                  # install Google Cloud tools
-    install_npm: true                           # install npm packages
     install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
+    install_npm: true                           # install npm packages
     install_rosetta: true                       # install Rosetta 2
     install_osx_defaults: true                  # install OSX defaults
     retries_count: 2                            # how many retries
@@ -75,7 +75,7 @@
           - "Ansible architecture         : {{ ansible_architecture }}"
     - name: wait_15_seconds
       ansible.builtin.pause:
-        seconds: 1
+        seconds: 15
         prompt: "Check variables - last chance to abort in 15 seconds"
     # Start
     - name: install_rosetta
@@ -112,7 +112,7 @@
     - name: install_homebrew_taps
       community.general.homebrew_tap:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('present') }}"
+        state: "{{ item.state | default('present') }}"
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: r_install_taps
@@ -129,7 +129,7 @@
     - name: install_homebrew_formulae
       community.general.homebrew:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('latest') }}"
+        state: "{{ item.state | default('latest') }}"
       loop: "{{ homebrew_formulae_essential }}"
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
@@ -147,7 +147,7 @@
     - name: install_homebrew_optional_formulae
       community.general.homebrew:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('latest') }}"
+        state: "{{ item.state | default('latest') }}"
       loop: "{{ homebrew_formulae_optional }}"
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
@@ -165,8 +165,8 @@
     - name: install_homebrew_casks
       community.general.homebrew_cask:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('present') }}"
-        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        state: "{{ item.state | default('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
         sudo_password: "{{ sudo_password }}"
       loop: "{{ homebrew_casks }}"
       retries: "{{ retries_count }}"
@@ -185,8 +185,8 @@
     - name: install_homebrew_casks_optional
       community.general.homebrew_cask:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('present') }}"
-        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        state: "{{ item.state | default('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
         sudo_password: "{{ sudo_password }}"
       loop: "{{ homebrew_casks_optional }}"
       retries: "{{ retries_count }}"
@@ -205,15 +205,15 @@
     - name: install_homebrew_casks_amd64
       community.general.homebrew_cask:
         name: "{{ item.name }}"
-        state: "{{ item.state | default ('present') }}"
-        accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+        state: "{{ item.state | default('present') }}"
+        accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
         sudo_password: "{{ sudo_password }}"
       loop: "{{ homebrew_casks_amd64 }}"
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: r_homebrew_casks_amd64
       until: r_homebrew_casks_amd64 is success
-      when: (ansible_architecture is defined and ansible_architecture == 'amd64') or (ansible_architecture is defined and ansible_architecture == 'arm64' and r_install_rosetta is defined and r_install_rosetta is success) # noqa 204
+      when: (ansible_architecture is defined and ansible_architecture == 'x86_64') or (ansible_architecture is defined and ansible_architecture == 'arm64' and r_install_rosetta is defined and r_install_rosetta is success) # noqa 204
       any_errors_fatal: false
       ignore_errors: true
       tags:
@@ -225,11 +225,12 @@
         - rosetta
   # Install homebrew azure formulae
     - name: install_azure_formulae_and_casks
+      when: install_azure_tools is defined and install_azure_tools
       block:
         - name: install_homebrew_azure_formulae
           community.general.homebrew:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
+            state: "{{ item.state | default('latest') }}"
           loop: "{{ homebrew_azure.formulae if homebrew_azure.formulae is iterable }}"
           loop_control:
             extended: true
@@ -248,8 +249,8 @@
         - name: install_homebrew_azure_casks
           community.general.homebrew_cask:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
-            accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+            state: "{{ item.state | default('latest') }}"
+            accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
             sudo_password: "{{ sudo_password }}"
           loop: "{{ homebrew_azure.casks if homebrew_azure.formulae is iterable }}"
           retries: "{{ retries_count }}"
@@ -264,14 +265,14 @@
             - casks
             - homebrew
             - azure
-      when: install_azure_tools is defined and install_gcloud_tools
   # Install homebrew aws formulae
     - name: install_aws_formulae_and_casks
+      when: install_aws_tools is defined and install_aws_tools
       block:
         - name: install_homebrew_aws_formulae
           community.general.homebrew:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
+            state: "{{ item.state | default('latest') }}"
           loop: "{{ homebrew_aws.formulae if homebrew_aws.formulae is iterable }}"
           loop_control:
             extended: true
@@ -290,8 +291,8 @@
         - name: install_homebrew_aws_casks
           community.general.homebrew_cask:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
-            accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+            state: "{{ item.state | default('latest') }}"
+            accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
             sudo_password: "{{ sudo_password }}"
           loop: "{{ homebrew_aws.casks if homebrew_aws.formulae is iterable }}"
           retries: "{{ retries_count }}"
@@ -306,14 +307,14 @@
             - casks
             - homebrew
             - aws
-      when: install_aws_tools is defined and install_aws_tools
   # Install homebrew oci formulae
     - name: install_oci_formulae_and_casks
+      when: install_oci_tools is defined and install_oci_tools
       block:
         - name: install_homebrew_oci_formulae
           community.general.homebrew:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
+            state: "{{ item.state | default('latest') }}"
           loop: "{{ homebrew_oci.formulae if homebrew_oci.formulae is iterable }}"
           loop_control:
             extended: true
@@ -332,8 +333,8 @@
         - name: install_homebrew_oci_casks
           community.general.homebrew_cask:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
-            accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+            state: "{{ item.state | default('latest') }}"
+            accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
             sudo_password: "{{ sudo_password }}"
           loop: "{{ homebrew_oci.casks if homebrew_oci.formulae is iterable }}"
           retries: "{{ retries_count }}"
@@ -348,14 +349,14 @@
             - casks
             - homebrew
             - oci
-      when: install_oci_tools is defined and install_oci_tools
   # Install homebrew gcloud formulae
     - name: install_gcloud_formulae_and_casks
+      when: install_gcloud_tools is defined and install_gcloud_tools
       block:
         - name: install_homebrew_gcloud_formulae
           community.general.homebrew:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
+            state: "{{ item.state | default('latest') }}"
           loop: "{{ homebrew_gcloud.formulae if homebrew_gcloud.formulae is iterable }}"
           loop_control:
             extended: true
@@ -374,8 +375,8 @@
         - name: install_homebrew_gcloud_casks
           community.general.homebrew_cask:
             name: "{{ item.name }}"
-            state: "{{ item.state | default ('latest') }}"
-            accept_external_apps: "{{ item.accept_external_apps | default (true) }}"
+            state: "{{ item.state | default('latest') }}"
+            accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
             sudo_password: "{{ sudo_password }}"
           loop: "{{ homebrew_gcloud.casks if homebrew_gcloud.formulae is iterable }}"
           retries: "{{ retries_count }}"
@@ -390,11 +391,10 @@
             - casks
             - homebrew
             - gcloud
-      when: install_gcloud_tools is defined and install_gcloud_tools
     - name: install_appstore_packages
       community.general.mas:
         id: "{{ item.id }}"
-        state: "{{ item.state | default ('present') }}"
+        state: "{{ item.state | default('present') }}"
         upgrade_all: no
       environment:
         PATH: "/usr/local/bin:/opt/homebrew/bin:{{ ansible_env.PATH }}"
@@ -448,8 +448,8 @@
         - python
     - name: install_npm_packages
       community.general.npm:
-        name: "{{ item.name|string }}"
-        state: "{{ item.state|string }}"
+        name: "{{ item.name | string }}"
+        state: "{{ item.state | string }}"
         global: yes
       loop: "{{ npm_packages }}"
       retries: "{{ retries_count }}"
@@ -457,6 +457,7 @@
       register: r_install_npm
       until: r_install_npm is success
       any_errors_fatal: false
+      failed_when: false
       when: install_npm is defined and install_npm
       environment:
         PATH: "/usr/local/bin:/opt/homebrew/bin:{{ ansible_env.PATH }}"
@@ -465,7 +466,7 @@
         - npm
     # download and unflatten
     - name: download_unarchive_flatten
-      include_tasks: ./tasks/download_files.yml
+      ansible.builtin.include_tasks: ./tasks/download_files.yml
       loop: "{{ unpack }}"
       args:
         apply:
@@ -487,7 +488,7 @@
         key: "{{ item.key }}"
         type: "{{ item.type }}"
         value: "{{ item.value }}"
-        state: "{{ item.state |default ('present') }}"
+        state: "{{ item.state | default('present') }}"
       loop: "{{ osx_defaults }}"
       when: osx_defaults is iterable and install_osx_defaults
       register: r_osx_defaults

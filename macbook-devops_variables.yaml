@@ -10,6 +10,7 @@ homebrew_formulae_essential:
   - name: arping
   - name: ca-certificates
   - name: cowsay
+  - name: csshx
   - name: ctop
   - name: esolitos/ipa/sshpass
   - name: gdbm
@@ -61,20 +62,23 @@ homebrew_formulae_optional:
   - name: datree
   - name: dive
   - name: ffuf
-  - name: ffuf
   - name: gping
-  - name: hadolint
   - name: hadolint
   - name: imagemagick
   - name: k3sup
+  - name: k9s
   - name: krew
   - name: kubeconform
   - name: kubernetes-cli
   - name: links
-  - name: skaffold
+  - name: qemu
+  - name: s3cmd
+  - name: siege
+  - name: smartmontools
   - name: steampipe
   - name: syft
   - name: synergy-core
+  - name: terminator
   - name: tflint
   - name: tfsec
 homebrew_casks:
@@ -90,28 +94,28 @@ homebrew_casks:
   - name: slack
   - name: tabby
   - name: utm
+  - name: vagrant
   - name: visual-studio-code
   - name: xca
 homebrew_casks_amd64:
   - name: powershell
-  - name: vagrant
   - name: virtualbox
-  - name: virtualbox-extension-pack
   - name: zenmap
 homebrew_casks_optional:
   - name: angry-ip-scanner
   - name: brave-browser
   - name: calibre
-  - name: ccleaner
-  - name: homebrew/cask-versions/hamsket-nightly
   - name: insync
   - name: keystore-explorer
-  - name: ksnip
+  - name: microsoft-teams
   - name: ngrok
   - name: numi
   - name: obsidian
+  - name: onyx
   - name: packetsender
   - name: parallels-virtualization-sdk
+  - name: rambox
+  - name: shottr
   - name: spotify
   - name: thetimemachinemechanic
   - name: tigervnc-viewer
@@ -161,30 +165,36 @@ npm_packages:
   - name: dockerfilelint
     state: latest
 unpack:
-  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_MacOS_amd64.tar.gz
-    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_MacOS_arm64.tar.gz
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.41/kubestr_0.4.41_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.41/kubestr_0.4.41_MacOS_arm64.tar.gz
     destination: kubestr
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_darwin_amd64.tar.gz
-    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_darwin_arm64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/8.4.0/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/8.4.0/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz
     folder:
-  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_macOS-64bit.tar.gz
-    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_macOS-ARM64.tar.gz
+  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.13/dockle_0.4.13_macOS-64bit.tar.gz
+    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.13/dockle_0.4.13_macOS-ARM64.tar.gz
     destination: dockle
     source: dockle
     destination_file: dockle.tar.gz
     folder:
-  - url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-25-g2321172/kubent-nightly-0.5.1-25-g2321172-darwin-amd64.tar.gz
-    url_arm64: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-25-g2321172/kubent-nightly-0.5.1-25-g2321172-darwin-arm64.tar.gz
+  - url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-33-gdf9a017/kubent-nightly-0.7.0-33-gdf9a017-darwin-amd64.tar.gz
+    url_arm64: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-33-gdf9a017/kubent-nightly-0.7.0-33-gdf9a017-darwin-arm64.tar.gz
     destination: kubent
     source: kubent
     destination_file: kubent.tar.gz
     folder:
+  # - url: https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil-v1.7.16-mac-amd64.zip
+  #   url_arm64: https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil-v1.7.16-mac-arm64.zip
+  #   destination: ossutil
+  #   source: ossutil
+  #   destination_file: ossutil.zip
+  #   folder:
 appstore_packages:
   - name: "The Unarchiver"
     id: 425424353

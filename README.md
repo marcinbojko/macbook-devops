@@ -59,7 +59,7 @@ brew install ansible
 |Variable|Descripton|Default|
 |--------|----------|-------|
 |delay_time|how many seconds wait between attempts|3|
-|install_appstore|Install Appstore Apps|true|
+|install_appstore_packages|Install Appstore Apps|true|
 |install_aws_tools|Install aws-cli|true|
 |install_azure_tools|Install azure-cli|true|
 |install_extra_tools|Install extra (unpack section) tools|true|

@@ -54,13 +54,14 @@
   register: r_task_download_files
   until: r_task_download_files is defined and r_task_download_files is success
   when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success and ansible_architecture == 'arm64'
-- name: task_unpack_files
+- name: task_unpack_files # noqa: command-instead-of-module
   ansible.builtin.shell:
     chdir: "{{ unpack_folder }}/downloads"
     cmd: "tar -xf {{ item.destination_file }} --directory {{ unpack_folder }}/unpack/"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
   register: r_task_unpack_files
+  changed_when: false
   until: r_task_unpack_files is defined and r_task_unpack_files is success
   when: r_task_download_files is defined and r_task_download_files is success
 - name: task_copy_files

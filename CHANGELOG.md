@@ -1,5 +1,32 @@
 # Changelog
 
+## Version 0.7.0
+
+* [APPLICATION] upgraded `kubestr` to version 0.4.41
+* [APPLICATION] upgraded `polaris` to version 8.4.0
+* [APPLICATION] upgraded `dockle` to version 0.4.13
+* [APPLICATION] upgraded `kubent` to nightly-0.7.0-33-gdf9a017
+* [APPLICATION] removed `skaffold`
+* [APPLICATION] added `csshx`
+* [APPLICATION] added `k9s`
+* [APPLICATION] added `qemu`
+* [APPLICATION] added `siege`
+* [APPLICATION] added `smartmontools`
+* [APPLICATION] added `terminator`
+* [APPLICATION] added `s3cmd`
+* [CASKS] removed `hamsket-nightly`
+* [CASKS] removed `virtualbox-extension-pack`
+* [CASKS] added `microsoft-teams`
+* [CASKS] added `vagrant`
+* [CASKS] added `rambox`
+
+## Version 0.6.2
+
+* [CASKS] removed `ksnip`
+* [CASKS] removed `ccleaner`
+* [CASKS] added `shottr`
+* [CASKS] added `onyx`
+
 ## Version 0.6.1
 
 * [CASKS] added `remote-desktop-manager-free`
