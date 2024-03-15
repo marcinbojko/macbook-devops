@@ -64,12 +64,13 @@ brew install ansible
 |install_azure_tools|Install azure-cli|true|
 |install_extra_tools|Install extra (unpack section) tools|true|
 |install_gcloud_tools|Install google-cloud-sdk|true|
+|install_alibaba_tools|Install alibaba-cli|true|
 |install_npm|Install npm packages|true|
 |install_oci_tools|Install oci-cli|true|
 |install_osx_defaults|Change default OSX settings through `osx_defaults` module|true|
 |install_rosetta|Install Rosetta 2 package|true|
 |retries_count|how many times retry tasks|2|
-|update_homebrew_packages|Should we upgrade formulae and casks|true|
+|upgrade_homebrew_packages|Should we upgrade formulae and casks|true|
 |update_homebrew|Should we install homebrew by itself|true|
 
 #### tasks

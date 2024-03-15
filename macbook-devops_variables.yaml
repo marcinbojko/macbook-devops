@@ -4,6 +4,7 @@ ansible_python_interpreter: /usr/bin/python3
 homebrew_taps:
   - name: anchore/syft
   - name: turbot/tap
+  - name: hashicorp/tap
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
@@ -12,6 +13,8 @@ homebrew_formulae_essential:
   - name: cowsay
   - name: csshx
   - name: ctop
+  - name: coreutils
+  - name: dive
   - name: esolitos/ipa/sshpass
   - name: gdbm
   - name: gettext
@@ -21,6 +24,7 @@ homebrew_formulae_essential:
   - name: gnu-tar
   - name: gnupg
   - name: gnutls
+  - name: gping
   - name: gpg
   - name: helm
   - name: htop
@@ -29,12 +33,17 @@ homebrew_formulae_essential:
   - name: iperf3
   - name: jq
   - name: kubectl
+  - name: k3sup
+  - name: kubent
+  - name: k9s
+  - name: krew
+  - name: kubeconform
   - name: libffi
   - name: libgcrypt
   - name: libnet
   - name: lima
   - name: mas
-  - name: mc
+  - name: midnight-commander
   - name: minikube
   - name: mtr
   - name: nano
@@ -44,19 +53,20 @@ homebrew_formulae_essential:
   - name: nmap
   - name: npm
   - name: openssl
-  - name: packer
   - name: pv
   - name: qemu
   - name: rke
-  - name: terraform
+  - name: siege
   - name: testdisk
   - name: testssl
   - name: trivy
-  - name: vault
   - name: watch
   - name: wget
   - name: xz
   - name: zsh
+  - name: hashicorp/tap/packer
+  - name: hashicorp/tap/terraform
+  - name: hashicorp/tap/vault
 homebrew_formulae_optional:
   - name: asciinema
   - name: datree
@@ -73,14 +83,13 @@ homebrew_formulae_optional:
   - name: links
   - name: qemu
   - name: s3cmd
-  - name: siege
   - name: smartmontools
   - name: steampipe
   - name: syft
-  - name: synergy-core
   - name: terminator
   - name: tflint
   - name: tfsec
+  - name: tcptraceroute
 homebrew_casks:
   - name: dropbox
   - name: enpass
@@ -104,6 +113,7 @@ homebrew_casks_amd64:
 homebrew_casks_optional:
   - name: angry-ip-scanner
   - name: brave-browser
+  - name: bitwarden
   - name: calibre
   - name: insync
   - name: keystore-explorer
@@ -140,6 +150,10 @@ homebrew_aws:
   casks: []
   formulae:
     - name: awscli
+homebrew_alibaba:
+  casks: []
+  formulae:
+    - name: aliyun-cli
 pip_executable: pip3
 pip:
   - pip
@@ -171,30 +185,18 @@ unpack:
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/8.4.0/polaris_darwin_amd64.tar.gz
-    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/8.4.0/polaris_darwin_arm64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/9.0.1/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/9.0.1/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz
     folder:
-  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.13/dockle_0.4.13_macOS-64bit.tar.gz
-    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.13/dockle_0.4.13_macOS-ARM64.tar.gz
+  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.14/dockle_0.4.14_macOS-64bit.tar.gz
+    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.14/dockle_0.4.14_macOS-ARM64.tar.gz
     destination: dockle
     source: dockle
     destination_file: dockle.tar.gz
     folder:
-  - url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-33-gdf9a017/kubent-nightly-0.7.0-33-gdf9a017-darwin-amd64.tar.gz
-    url_arm64: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-33-gdf9a017/kubent-nightly-0.7.0-33-gdf9a017-darwin-arm64.tar.gz
-    destination: kubent
-    source: kubent
-    destination_file: kubent.tar.gz
-    folder:
-  # - url: https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil-v1.7.16-mac-amd64.zip
-  #   url_arm64: https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil-v1.7.16-mac-arm64.zip
-  #   destination: ossutil
-  #   source: ossutil
-  #   destination_file: ossutil.zip
-  #   folder:
 appstore_packages:
   - name: "The Unarchiver"
     id: 425424353

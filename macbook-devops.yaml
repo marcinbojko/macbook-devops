@@ -10,6 +10,7 @@
     install_extra_tools: true                   # install extra tools (unpack section)
     install_gcloud_tools: true                  # install Google Cloud tools
     install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
+    install_alibaba_tools: true                 # install Alibaba Cloud tools
     install_npm: true                           # install npm packages
     install_rosetta: true                       # install Rosetta 2
     install_osx_defaults: true                  # install OSX defaults
@@ -391,6 +392,48 @@
             - casks
             - homebrew
             - gcloud
+  # Install homebrew alibaba formulae
+    - name: install_alibaba_formulae_and_casks
+      when: install_alibaba_tools is defined and install_alibaba_tools
+      block:
+        - name: install_homebrew_alibaba_formulae
+          community.general.homebrew:
+            name: "{{ item.name }}"
+            state: "{{ item.state | default('latest') }}"
+          loop: "{{ homebrew_alibaba.formulae if homebrew_alibaba.formulae is iterable }}"
+          loop_control:
+            extended: true
+          retries: "{{ retries_count }}"
+          delay: "{{ delay_time }}"
+          register: r_homebrew_alibaba_formulae
+          until: r_homebrew_alibaba_formulae is success
+          when: (homebrew_alibaba.formulae is defined and homebrew_alibaba.formulae is iterable)
+          any_errors_fatal: false
+          ignore_errors: true
+          tags:
+            - packages
+            - formulae
+            - homebrew
+            - alibaba
+        - name: install_homebrew_alibaba_casks
+          community.general.homebrew_cask:
+            name: "{{ item.name }}"
+            state: "{{ item.state | default('latest') }}"
+            accept_external_apps: "{{ item.accept_external_apps | default(true) }}"
+            sudo_password: "{{ sudo_password }}"
+          loop: "{{ homebrew_alibaba.casks if homebrew_alibaba.formulae is iterable }}"
+          retries: "{{ retries_count }}"
+          delay: "{{ delay_time }}"
+          register: r_homebrew_alibaba_casks
+          until: r_homebrew_alibaba_casks is success
+          when: (homebrew_alibaba.casks is defined and homebrew_alibaba.casks is iterable)
+          any_errors_fatal: false
+          ignore_errors: true
+          tags:
+            - packages
+            - casks
+            - homebrew
+            - alibaba
     - name: install_appstore_packages
       community.general.mas:
         id: "{{ item.id }}"
@@ -409,8 +452,8 @@
       tags:
         - packages
         - appstore
-  # Update homebrew packages
-    - name: update_homebrew_packages
+  # Upgrade homebrew packages
+    - name: upgrade_homebrew_packages
       community.general.homebrew:
         upgrade_all: true
         upgrade_options:
@@ -418,17 +461,18 @@
           - verbose
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
-      register: r_update_homebrew_packages
-      until: r_update_homebrew_packages is success
+      register: r_upgrade_homebrew_packages
+      until: r_upgrade_homebrew_packages is success
       any_errors_fatal: false
       ignore_errors: true
-      when: update_homebrew_packages
+      when: upgrade_homebrew_packages
       tags:
         - packages
         - base
         - itself
         - upgrade
         - essential
+      become: true
     - name: install_and_upgrade_pip_packages
       ansible.builtin.pip:
         name: "{{ item }}"

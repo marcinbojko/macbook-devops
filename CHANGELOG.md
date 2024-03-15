@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 0.8.0
+
+* [ALIBABA] added `alibaba-cloud`
+* [ALIBABA] added `aliyun-cli`
+* [TAPS] added `hashicorp/tap`
+* [FORMULA] added `terraform`
+* [FORMULA] added `packer`
+* [FORMULA] added `vault`
+* [CASKS] removed `synergy-core`
+* [APPLICATION] upgraded `polaris` to version 9.0.1
+* [APPLICATION] upgraded `dockle` to version 0.4.14
+* [APPLICATION] switch `kubent` to homebrew version
+* variable `update_homebrew_packages` renamed `upgrade_homebrew_packages`
+
 ## Version 0.7.0
 
 * [APPLICATION] upgraded `kubestr` to version 0.4.41
