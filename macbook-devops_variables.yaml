@@ -5,6 +5,7 @@ homebrew_taps:
   - name: anchore/syft
   - name: turbot/tap
   - name: hashicorp/tap
+  - name: spectralops/tap
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
@@ -90,6 +91,8 @@ homebrew_formulae_optional:
   - name: tflint
   - name: tfsec
   - name: tcptraceroute
+  - name: sops
+  - name: teller
 homebrew_casks:
   - name: dropbox
   - name: enpass
@@ -134,6 +137,8 @@ homebrew_casks_optional:
   - name: wpsoffice
   - name: zoom
   - name: zulu17
+  - name: openlens
+  - name: hedlamp
 homebrew_azure:
   casks: []
   formulae:

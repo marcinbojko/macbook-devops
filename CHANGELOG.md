@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.8.1
+
+* [TAPS] added `spectralops/tap`
+* [FORMULA] added `spectralops/tap/teller`
+* [CASKS] added added `headlamp`
+* [CASKS] added `openlens`
+
 ## Version 0.8.0
 
 * [ALIBABA] added `alibaba-cloud`
