@@ -3,20 +3,21 @@
 ansible_python_interpreter: /usr/bin/python3
 homebrew_taps:
   - name: anchore/syft
-  - name: turbot/tap
   - name: hashicorp/tap
   - name: spectralops/tap
+  - name: turbot/tap
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
   - name: arping
   - name: ca-certificates
+  - name: coreutils
   - name: cowsay
   - name: csshx
   - name: ctop
-  - name: coreutils
   - name: dive
-  - name: esolitos/ipa/sshpass
+  - name: duf
+  - name: eza
   - name: gdbm
   - name: gettext
   - name: git
@@ -25,25 +26,29 @@ homebrew_formulae_essential:
   - name: gnu-tar
   - name: gnupg
   - name: gnutls
-  - name: gping
   - name: gpg
+  - name: gping
+  - name: hashicorp/tap/packer
+  - name: hashicorp/tap/terraform
+  - name: hashicorp/tap/vault
   - name: helm
   - name: htop
   - name: httpie
   - name: iftop
   - name: iperf3
   - name: jq
-  - name: kubectl
   - name: k3sup
-  - name: kubent
   - name: k9s
   - name: krew
   - name: kubeconform
+  - name: kubectl
+  - name: kubent
   - name: libffi
   - name: libgcrypt
   - name: libnet
   - name: lima
   - name: mas
+  - name: micro
   - name: midnight-commander
   - name: minikube
   - name: mtr
@@ -58,17 +63,17 @@ homebrew_formulae_essential:
   - name: qemu
   - name: rke
   - name: siege
+  - name: sshpass
   - name: testdisk
   - name: testssl
   - name: trivy
   - name: watch
   - name: wget
   - name: xz
+  - name: yq
   - name: zsh
-  - name: hashicorp/tap/packer
-  - name: hashicorp/tap/terraform
-  - name: hashicorp/tap/vault
 homebrew_formulae_optional:
+  - name: act
   - name: asciinema
   - name: datree
   - name: dive
@@ -82,17 +87,18 @@ homebrew_formulae_optional:
   - name: kubeconform
   - name: kubernetes-cli
   - name: links
+  - name: lolcat
   - name: qemu
   - name: s3cmd
   - name: smartmontools
+  - name: sops
   - name: steampipe
   - name: syft
+  - name: tcptraceroute
+  - name: teller
   - name: terminator
   - name: tflint
   - name: tfsec
-  - name: tcptraceroute
-  - name: sops
-  - name: teller
 homebrew_casks:
   - name: dropbox
   - name: enpass
@@ -114,22 +120,27 @@ homebrew_casks_amd64:
   - name: virtualbox
   - name: zenmap
 homebrew_casks_optional:
+  - name: alfred
   - name: angry-ip-scanner
-  - name: brave-browser
   - name: bitwarden
+  - name: brave-browser
   - name: calibre
+  - name: headlamp
+  - name: iina
   - name: insync
+  - name: karabiner-elements
   - name: keystore-explorer
   - name: microsoft-teams
-  - name: ngrok
   - name: numi
   - name: obsidian
   - name: onyx
+  - name: openlens
   - name: packetsender
   - name: parallels-virtualization-sdk
   - name: rambox
   - name: shottr
   - name: spotify
+  - name: tailscale
   - name: thetimemachinemechanic
   - name: tigervnc-viewer
   - name: vlc
@@ -137,8 +148,6 @@ homebrew_casks_optional:
   - name: wpsoffice
   - name: zoom
   - name: zulu17
-  - name: openlens
-  - name: hedlamp
 homebrew_azure:
   casks: []
   formulae:
@@ -184,14 +193,14 @@ npm_packages:
   - name: dockerfilelint
     state: latest
 unpack:
-  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.41/kubestr_0.4.41_MacOS_amd64.tar.gz
-    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.41/kubestr_0.4.41_MacOS_arm64.tar.gz
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.44/kubestr_0.4.44_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.44/kubestr_0.4.44_MacOS_arm64.tar.gz
     destination: kubestr
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/9.0.1/polaris_darwin_amd64.tar.gz
-    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/9.0.1/polaris_darwin_arm64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/9.1.1/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/9.1.1/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz

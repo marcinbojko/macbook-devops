@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 0.8.2
+
+* [FIX] fixed error for `upgrade_homebrew_packages` variable not being used
+* [FORMULA] rename `esolitos/ipa/sshpass` to `sshpass`
+* [FORMULA] added `micro` [https://github.com/zyedidia/micro](https://github.com/zyedidia/micro)
+* [FORMULA] added `eza` [https://github.com/eza-community/eza](https://github.com/eza-community/eza)
+* [FORMULA] added `duf` [https://github.com/muesli/duf](https://github.com/muesli/duf)
+* [FORMULA] added `act` [https://github.com/nektos/act](https://github.com/nektos/act)
+* [FORMULA] added `yq` [
+* [CASK] added `karabine-elements` [
+* [CASK] added `alfred` [https://www.alfredapp.com/](https://www.alfredapp.com/)
+* [CASK] added `iina` [https://iina.io/](https://iina.io/)
+* [APPLICATION] upgraded `polaris` to version 9.1.1
+* [APPLICATION] upgraded `kubestr` to version 0.4.44
+
 ## Version 0.8.1
 
 * [TAPS] added `spectralops/tap`

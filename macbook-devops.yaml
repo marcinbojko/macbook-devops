@@ -15,7 +15,7 @@
     install_rosetta: true                       # install Rosetta 2
     install_osx_defaults: true                  # install OSX defaults
     retries_count: 2                            # how many retries
-    update_homebrew_packages: true              # should we upgrade all brew packages
+    upgrade_homebrew_packages: true             # should we upgrade all brew packages
     update_homebrew: true                       # should be update brew itself in first step
     ansible_become_password: "{{ sudo_password }}"
   become: false
@@ -465,14 +465,14 @@
       until: r_upgrade_homebrew_packages is success
       any_errors_fatal: false
       ignore_errors: true
-      when: upgrade_homebrew_packages
+      when: upgrade_homebrew_packages is defined and upgrade_homebrew_packages
       tags:
         - packages
         - base
         - itself
         - upgrade
         - essential
-      become: true
+      become: false
     - name: install_and_upgrade_pip_packages
       ansible.builtin.pip:
         name: "{{ item }}"
