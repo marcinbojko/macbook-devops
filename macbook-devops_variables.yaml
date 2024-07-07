@@ -62,6 +62,7 @@ homebrew_formulae_essential:
   - name: pv
   - name: qemu
   - name: rke
+  - name: shellcheck
   - name: siege
   - name: sshpass
   - name: testdisk
