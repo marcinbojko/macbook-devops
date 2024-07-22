@@ -126,6 +126,7 @@ homebrew_casks_optional:
   - name: bitwarden
   - name: brave-browser
   - name: calibre
+  - name: chatgpt
   - name: headlamp
   - name: iina
   - name: insync
