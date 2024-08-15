@@ -62,6 +62,7 @@ homebrew_formulae_essential:
   - name: pv
   - name: qemu
   - name: rke
+  - name: shellcheck
   - name: siege
   - name: sshpass
   - name: testdisk
@@ -100,6 +101,7 @@ homebrew_formulae_optional:
   - name: tflint
   - name: tfsec
 homebrew_casks:
+  - name: double-commander
   - name: dropbox
   - name: enpass
   - name: firefox
@@ -125,6 +127,7 @@ homebrew_casks_optional:
   - name: bitwarden
   - name: brave-browser
   - name: calibre
+  - name: chatgpt
   - name: headlamp
   - name: iina
   - name: insync

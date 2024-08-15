@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.8.3
+
+* [FORMULA] added `shellcheck`
+* [CASK] added `chatgpt`
+* [CASK] added `double-commander`
+
 ## Version 0.8.2
 
 * [FIX] fixed error for `upgrade_homebrew_packages` variable not being used
@@ -8,8 +14,8 @@
 * [FORMULA] added `eza` [https://github.com/eza-community/eza](https://github.com/eza-community/eza)
 * [FORMULA] added `duf` [https://github.com/muesli/duf](https://github.com/muesli/duf)
 * [FORMULA] added `act` [https://github.com/nektos/act](https://github.com/nektos/act)
-* [FORMULA] added `yq` [
-* [CASK] added `karabine-elements` [
+* [FORMULA] added `yq`
+* [CASK] added `karabine-elements` [https://karabiner-elements.pqrs.org/](https://karabiner-elements.pqrs.org/)
 * [CASK] added `alfred` [https://www.alfredapp.com/](https://www.alfredapp.com/)
 * [CASK] added `iina` [https://iina.io/](https://iina.io/)
 * [APPLICATION] upgraded `polaris` to version 9.1.1
