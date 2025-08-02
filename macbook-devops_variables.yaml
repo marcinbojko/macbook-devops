@@ -3,31 +3,44 @@
 ansible_python_interpreter: /usr/bin/python3
 homebrew_taps:
   - name: anchore/syft
+  - name: axiomhq/tap
+  - name: azure/kubelogin
   - name: hashicorp/tap
+  - name: infisical/get-cli
   - name: spectralops/tap
   - name: turbot/tap
 homebrew_formulae_essential:
   - name: ansible
   - name: ansible-lint
+  - name: argocd
   - name: arping
+  - name: atuin
+  - name: axiom
   - name: ca-certificates
+  - name: checkov
   - name: coreutils
   - name: cowsay
   - name: csshx
   - name: ctop
   - name: dive
   - name: duf
+  - name: duff
+  - name: esptool
   - name: eza
+  - name: ffuf
   - name: gdbm
   - name: gettext
+  - name: gh
   - name: git
   - name: git-lfs
   - name: gnu-sed
   - name: gnu-tar
   - name: gnupg
   - name: gnutls
+  - name: go
   - name: gpg
   - name: gping
+  - name: hadolint
   - name: hashicorp/tap/packer
   - name: hashicorp/tap/terraform
   - name: hashicorp/tap/vault
@@ -35,6 +48,8 @@ homebrew_formulae_essential:
   - name: htop
   - name: httpie
   - name: iftop
+  - name: immich-cli
+  - name: infisical
   - name: iperf3
   - name: jq
   - name: k3sup
@@ -57,17 +72,25 @@ homebrew_formulae_essential:
   - name: ncurses
   - name: netcat
   - name: nmap
+  - name: node
   - name: npm
   - name: openssl
+  - name: pre-commit
+  - name: prettier
   - name: pv
   - name: qemu
+  - name: repo
   - name: rke
   - name: shellcheck
+  - name: shfmt
   - name: siege
   - name: sshpass
+  - name: syncthing
   - name: testdisk
   - name: testssl
+  - name: trippy
   - name: trivy
+  - name: upx
   - name: watch
   - name: wget
   - name: xz
@@ -76,7 +99,6 @@ homebrew_formulae_essential:
 homebrew_formulae_optional:
   - name: act
   - name: asciinema
-  - name: datree
   - name: dive
   - name: ffuf
   - name: gping
@@ -101,36 +123,50 @@ homebrew_formulae_optional:
   - name: tflint
   - name: tfsec
 homebrew_casks:
+  - name: arc
+  - name: copyclip
+  - name: cyberduck
+  - name: devtoys
   - name: double-commander
   - name: dropbox
-  - name: enpass
   - name: firefox
   - name: gitkraken
+  - name: gitkraken-cli
   - name: google-chrome
   - name: lens
-  - name: postman
+  - name: meta
+  - name: microsoft-auto-update
+  - name: monitorcontrol
   - name: rancher
+  - name: rar
+  - name: raycast
   - name: remote-desktop-manager-free
   - name: slack
-  - name: tabby
   - name: utm
   - name: vagrant
   - name: visual-studio-code
+  - name: warp
+  - name: wave
+  - name: wireshark-app
   - name: xca
+  - name: yubico-authenticator
 homebrew_casks_amd64:
   - name: powershell
   - name: virtualbox
   - name: zenmap
 homebrew_casks_optional:
-  - name: alfred
   - name: angry-ip-scanner
   - name: bitwarden
   - name: brave-browser
   - name: calibre
   - name: chatgpt
+  - name: enpass
   - name: headlamp
+  - name: hiddenbar
   - name: iina
+  - name: insomnia
   - name: insync
+  - name: jabra-direct
   - name: karabiner-elements
   - name: keystore-explorer
   - name: microsoft-teams
@@ -140,6 +176,7 @@ homebrew_casks_optional:
   - name: openlens
   - name: packetsender
   - name: parallels-virtualization-sdk
+  - name: postman
   - name: rambox
   - name: shottr
   - name: spotify
@@ -150,14 +187,16 @@ homebrew_casks_optional:
   - name: wireshark
   - name: wpsoffice
   - name: zoom
-  - name: zulu17
+  - name: zulu@21
 homebrew_azure:
   casks: []
   formulae:
     - name: azure-cli
+    - name: azure/kubelogin/kubelogin
 homebrew_gcloud:
   casks:
     - name: google-cloud-sdk
+    - name: gcloud-cli
   formulae: []
 homebrew_oci:
   casks: []
@@ -195,21 +234,23 @@ npm_packages:
     state: latest
   - name: dockerfilelint
     state: latest
+  - name: "@anthropic-ai/claude-code"
+    state: latest
 unpack:
-  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.44/kubestr_0.4.44_MacOS_amd64.tar.gz
-    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.44/kubestr_0.4.44_MacOS_arm64.tar.gz
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.49/kubestr_0.4.49_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.49/kubestr_0.4.49_MacOS_arm64.tar.gz
     destination: kubestr
     source: kubestr
     destination_file: kubestr.tar.gz
     folder:
-  - url: https://github.com/FairwindsOps/polaris/releases/download/9.1.1/polaris_darwin_amd64.tar.gz
-    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/9.1.1/polaris_darwin_arm64.tar.gz
+  - url: https://github.com/FairwindsOps/polaris/releases/download/v10.1.0/polaris_darwin_amd64.tar.gz
+    url_arm64: https://github.com/FairwindsOps/polaris/releases/download/v10.1.0/polaris_darwin_arm64.tar.gz
     destination: polaris
     source: polaris
     destination_file: polaris.tar.gz
     folder:
-  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.14/dockle_0.4.14_macOS-64bit.tar.gz
-    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.14/dockle_0.4.14_macOS-ARM64.tar.gz
+  - url: https://github.com/goodwithtech/dockle/releases/download/v0.4.15/dockle_0.4.15_macOS-64bit.tar.gz
+    url_arm64: https://github.com/goodwithtech/dockle/releases/download/v0.4.15/dockle_0.4.15_macOS-ARM64.tar.gz
     destination: dockle
     source: dockle
     destination_file: dockle.tar.gz

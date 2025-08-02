@@ -38,6 +38,12 @@ or get it from AppStore
 ansible-playbook ./macbook-devops.yaml -i ../macbook.lst -e '{"sudo_password": "your_user_password"}'
 ```
 
+### Run playbook (locally)
+
+```bash
+ansible-playbook --connection=local --inventory 127.0.0.1, ./macbook-devops.yaml -e '{"sudo_password": "your_user_password"}'
+```
+
 ### Run playbook locally - extra steps
 
 #### Install Homembrew
@@ -56,29 +62,29 @@ brew install ansible
 
 #### main playbook
 
-|Variable|Descripton|Default|
-|--------|----------|-------|
-|delay_time|how many seconds wait between attempts|3|
-|install_appstore_packages|Install Appstore Apps|true|
-|install_aws_tools|Install aws-cli|true|
-|install_azure_tools|Install azure-cli|true|
-|install_extra_tools|Install extra (unpack section) tools|true|
-|install_gcloud_tools|Install google-cloud-sdk|true|
-|install_alibaba_tools|Install alibaba-cli|true|
-|install_npm|Install npm packages|true|
-|install_oci_tools|Install oci-cli|true|
-|install_osx_defaults|Change default OSX settings through `osx_defaults` module|true|
-|install_rosetta|Install Rosetta 2 package|true|
-|retries_count|how many times retry tasks|2|
-|upgrade_homebrew_packages|Should we upgrade formulae and casks|true|
-|update_homebrew|Should we install homebrew by itself|true|
+| Variable                  | Descripton                                                | Default |
+| ------------------------- | --------------------------------------------------------- | ------- |
+| delay_time                | how many seconds wait between attempts                    | 3       |
+| install_appstore_packages | Install Appstore Apps                                     | true    |
+| install_aws_tools         | Install aws-cli                                           | true    |
+| install_azure_tools       | Install azure-cli                                         | true    |
+| install_extra_tools       | Install extra (unpack section) tools                      | true    |
+| install_gcloud_tools      | Install google-cloud-sdk                                  | true    |
+| install_alibaba_tools     | Install alibaba-cli                                       | true    |
+| install_npm               | Install npm packages                                      | true    |
+| install_oci_tools         | Install oci-cli                                           | true    |
+| install_osx_defaults      | Change default OSX settings through `osx_defaults` module | true    |
+| install_rosetta           | Install Rosetta 2 package                                 | true    |
+| retries_count             | how many times retry tasks                                | 2       |
+| upgrade_homebrew_packages | Should we upgrade formulae and casks                      | true    |
+| update_homebrew           | Should we install homebrew by itself                      | true    |
 
 #### tasks
 
-|Variable|Descripton|Default|
-|--------|----------|-------|
-|bin_path|where to store executable files| /usr/local/bin|
-|unpack_folder|where to store downloaded archives| /tmp/macbook|
+| Variable      | Descripton                         | Default        |
+| ------------- | ---------------------------------- | -------------- |
+| bin_path      | where to store executable files    | /usr/local/bin |
+| unpack_folder | where to store downloaded archives | /tmp/macbook   |
 
 ## Content
 
@@ -96,39 +102,39 @@ example of downloading kubestr file and putting it into `bin_path`
 
 ```yaml
 unpack:
-- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
-  url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_arm64.tar.gz
-  destination: kubestr
-  source: kubestr
-  destination_file: kubestr.tar.gz
-  folder:
+  - url: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_amd64.tar.gz
+    url_arm64: https://github.com/kastenhq/kubestr/releases/download/v0.4.31/kubestr_0.4.31_MacOS_arm64.tar.gz
+    destination: kubestr
+    source: kubestr
+    destination_file: kubestr.tar.gz
+    folder:
 ```
 
 ### AppStore Apps
 
-|Name|Description|URL|
-|----|-----------|---|
-|CopyClip|Clipboard Manager|[https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12](https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12)|
-|Microsoft Remote Desktop|RDP|[https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12)|
-|The Unarchiver|Open any archive in seconds|[https://theunarchiver.com/](https://theunarchiver.com/)|
+| Name                     | Description                 | URL                                                                                                                                                              |
+| ------------------------ | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CopyClip                 | Clipboard Manager           | [https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12](https://apps.apple.com/us/app/copyclip-clipboard-history/id595191960?mt=12)         |
+| Microsoft Remote Desktop | RDP                         | [https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12](https://apps.apple.com/pl/app/microsoft-remote-desktop/id1295203466?l=pl&mt=12) |
+| The Unarchiver           | Open any archive in seconds | [https://theunarchiver.com/](https://theunarchiver.com/)                                                                                                         |
 
 ### Change OSX defaults
 
 Using `osx_defaults` module you can set any OSX settings. Remember to relogin afterwards
 
-|Name|Key|Value|Type|Description|
-|----|---|-----|----|-----------|
-|com.apple.backupd-auto.plist|StartInterval|14400|string|Frequency of a TimeMachine backups in seconds|
+| Name                         | Key           | Value | Type   | Description                                   |
+| ---------------------------- | ------------- | ----- | ------ | --------------------------------------------- |
+| com.apple.backupd-auto.plist | StartInterval | 14400 | string | Frequency of a TimeMachine backups in seconds |
 
 ## ToDO
 
-* ~~add more tools~~
-* ~~add system settings~~
-* add upgrade packages options
-* add custom files allowing you to add or exlude specific packages without modyfing playbook files directly
-* ~~add npm~~
-* ~~add external packages not available through homebrew or AppStore~~
-* ~~add M1 chip files~~
+- ~~add more tools~~
+- ~~add system settings~~
+- add upgrade packages options
+- add custom files allowing you to add or exlude specific packages without modyfing playbook files directly
+- ~~add npm~~
+- ~~add external packages not available through homebrew or AppStore~~
+- ~~add M1 chip files~~
 
 ## Known issues
 

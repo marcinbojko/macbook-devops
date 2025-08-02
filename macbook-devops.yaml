@@ -3,25 +3,25 @@
 - name: prepare_macosx_desktop
   hosts: all
   vars:
-    delay_time: 3                               # delay time in seconds between retries
-    install_aws_tools: true                     # install Amazon Cloud tools
-    install_appstore_packages: true             # install App Store apps
-    install_azure_tools: true                   # install Microsoft Azure tools
-    install_extra_tools: true                   # install extra tools (unpack section)
-    install_gcloud_tools: true                  # install Google Cloud tools
-    install_oci_tools: true                     # install Oracle Cloud Infrastructure tools
-    install_alibaba_tools: true                 # install Alibaba Cloud tools
-    install_npm: true                           # install npm packages
-    install_rosetta: true                       # install Rosetta 2
-    install_osx_defaults: true                  # install OSX defaults
-    retries_count: 2                            # how many retries
-    upgrade_homebrew_packages: true             # should we upgrade all brew packages
-    update_homebrew: true                       # should be update brew itself in first step
+    delay_time: 3 # delay time in seconds between retries
+    install_aws_tools: true # install Amazon Cloud tools
+    install_appstore_packages: true # install App Store apps
+    install_azure_tools: true # install Microsoft Azure tools
+    install_extra_tools: true # install extra tools (unpack section)
+    install_gcloud_tools: true # install Google Cloud tools
+    install_oci_tools: true # install Oracle Cloud Infrastructure tools
+    install_alibaba_tools: true # install Alibaba Cloud tools
+    install_npm: true # install npm packages
+    install_rosetta: true # install Rosetta 2
+    install_osx_defaults: true # install OSX defaults
+    retries_count: 2 # how many retries
+    upgrade_homebrew_packages: true # should we upgrade all brew packages
+    update_homebrew: true # should be update brew itself in first step
     ansible_become_password: "{{ sudo_password }}"
   become: false
   gather_facts: false
   pre_tasks:
-  # ansible version
+    # ansible version
     - name: verify_ansible_meets_version_requirements
       ansible.builtin.assert:
         that: "ansible_version.full is version('2.10', '>=')"
@@ -144,7 +144,7 @@
         - formulae
         - homebrew
         - essential
-  # Install homebrew optional formulae
+    # Install homebrew optional formulae
     - name: install_homebrew_optional_formulae
       community.general.homebrew:
         name: "{{ item.name }}"
@@ -162,7 +162,7 @@
         - formulae
         - homebrew
         - optional
-  # Install homebrew casks
+    # Install homebrew casks
     - name: install_homebrew_casks
       community.general.homebrew_cask:
         name: "{{ item.name }}"
@@ -182,7 +182,7 @@
         - homebrew
         - casks
         - essential
-  # install homebrew casks - optional
+    # install homebrew casks - optional
     - name: install_homebrew_casks_optional
       community.general.homebrew_cask:
         name: "{{ item.name }}"
@@ -202,7 +202,7 @@
         - homebrew
         - casks
         - optional
-  # Install homebrew casks for amd64 or arm64 with rosetta 2
+    # Install homebrew casks for amd64 or arm64 with rosetta 2
     - name: install_homebrew_casks_amd64
       community.general.homebrew_cask:
         name: "{{ item.name }}"
@@ -224,7 +224,7 @@
         - casks
         - essential
         - rosetta
-  # Install homebrew azure formulae
+    # Install homebrew azure formulae
     - name: install_azure_formulae_and_casks
       when: install_azure_tools is defined and install_azure_tools
       block:
@@ -266,7 +266,11 @@
             - casks
             - homebrew
             - azure
-  # Install homebrew aws formulae
+      rescue:
+        - name: log_azure_installation_failure
+          debug:
+            msg: "Failed to install some Azure tools, continuing with playbook"
+    # Install homebrew aws formulae
     - name: install_aws_formulae_and_casks
       when: install_aws_tools is defined and install_aws_tools
       block:
@@ -308,7 +312,11 @@
             - casks
             - homebrew
             - aws
-  # Install homebrew oci formulae
+      rescue:
+        - name: log_aws_installation_failure
+          debug:
+            msg: "Failed to install some AWS tools, continuing with playbook"
+    # Install homebrew oci formulae
     - name: install_oci_formulae_and_casks
       when: install_oci_tools is defined and install_oci_tools
       block:
@@ -350,7 +358,11 @@
             - casks
             - homebrew
             - oci
-  # Install homebrew gcloud formulae
+      rescue:
+        - name: log_oci_installation_failure
+          debug:
+            msg: "Failed to install some OCI tools, continuing with playbook"
+    # Install homebrew gcloud formulae
     - name: install_gcloud_formulae_and_casks
       when: install_gcloud_tools is defined and install_gcloud_tools
       block:
@@ -392,7 +404,11 @@
             - casks
             - homebrew
             - gcloud
-  # Install homebrew alibaba formulae
+      rescue:
+        - name: log_gcloud_installation_failure
+          debug:
+            msg: "Failed to install some GCloud tools, continuing with playbook"
+    # Install homebrew alibaba formulae
     - name: install_alibaba_formulae_and_casks
       when: install_alibaba_tools is defined and install_alibaba_tools
       block:
@@ -434,6 +450,10 @@
             - casks
             - homebrew
             - alibaba
+      rescue:
+        - name: log_alibaba_installation_failure
+          debug:
+            msg: "Failed to install some Alibaba tools, continuing with playbook"
     - name: install_appstore_packages
       community.general.mas:
         id: "{{ item.id }}"
@@ -452,7 +472,7 @@
       tags:
         - packages
         - appstore
-  # Upgrade homebrew packages
+    # Upgrade homebrew packages
     - name: upgrade_homebrew_packages
       community.general.homebrew:
         upgrade_all: true
@@ -542,4 +562,3 @@
       become: true
       tags:
         - osx_defaults
-

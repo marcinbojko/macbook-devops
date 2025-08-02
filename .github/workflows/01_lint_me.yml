@@ -3,6 +3,9 @@ name: Super-Linter
 # Run this workflow every time a new commit pushed to your repository
 on: push
 
+permissions:
+  contents: read
+
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
@@ -11,7 +14,6 @@ jobs:
     name: Lint code base
     # Set the type of machine to run on
     runs-on: ubuntu-latest
-
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
@@ -20,11 +22,9 @@ jobs:
       # Runs the Super-Linter action
       - name: Run Super-Linter
         # workaround for superlinter issues
-        uses: github/super-linter@latest
+        uses: super-linter/super-linter@v8.0.0
         env:
-          DEFAULT_BRANCH: master
+          DEFAULT_BRANCH: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ANSIBLE: false
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_DOCKERFILE_HADOLINT: false
-
